@@ -1,4 +1,24 @@
-define(['jquery'], function ($) {
+define([
+    'jquery',
+    'text!app/login/login.htm'
+], function ($, markup) {
+    var $element = $(markup);
+
+    var $username = $element.find('input[type=text]'),
+        $password = $element.find('input[type=password]');
+
+    var $loginBtn = $element.find('#login-submit');
+    $loginBtn.on('click', function (event) {
+        // TODO more strict validation on login parameters
+        // (username exists, password correct, etc.)
+        if ($username.val().length && $password.val().length)
+            console.log("Successful login");
+            $username.val('');
+            $password.val('');
+    });
+
     // each view should empty and build '#content-inner'
-    $('#content-inner').text('This is the login module!');
+    var $content = $('#content-inner');
+    $content.empty()
+    $content.append($element);
 });

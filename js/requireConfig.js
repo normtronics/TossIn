@@ -1,9 +1,12 @@
 require.config({
-    baseUrl: 'js/vendor',
+    baseUrl: 'js',
     paths: {
-        jquery: 'jquery-1.10.2.min',
-        underscore: 'underscore.js',
+        jquery: 'vendor/jquery-1.10.2.min',
+        underscore: 'vendor/underscore.js',
         
-        mockjax: '../plugins/mockjax'
+        mockjax: 'plugins/mockjax',
+        bootstrap: 'plugins/bootstrap',
+
+        text: 'plugins/text'
     }
 });
