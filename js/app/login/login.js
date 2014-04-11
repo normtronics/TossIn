@@ -1,7 +1,8 @@
 define([
     'jquery',
-    'text!app/login/login.htm'
-], function ($, markup) {
+    'text!app/login/login.htm',
+    'app/instructor/instructor'
+], function ($, markup, instructorView) {
     var $element = $(markup);
 
     var $username = $element.find('input[type=text]'),
@@ -12,9 +13,7 @@ define([
         // TODO more strict validation on login parameters
         // (username exists, password correct, etc.)
         if ($username.val().length && $password.val().length)
-            console.log("Successful login");
-            $username.val('');
-            $password.val('');
+            instructorView.show();
     });
 
     // each view should empty and build '#content-inner'
