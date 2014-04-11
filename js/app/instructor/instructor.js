@@ -15,7 +15,6 @@ define([
 
     var api = {
         show : function () {
-            window.alert('callled');
             $studentList.studentlist();
             $textArea.texteditor();
 
