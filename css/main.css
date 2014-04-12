@@ -213,7 +213,7 @@ body {
     overflow: auto;
 }
 
-#student-list > #stu-list-header {
+#stu-list-header {
     height: 35px;
     text-align: center;
     color: #fff;

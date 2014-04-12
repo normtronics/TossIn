@@ -12,7 +12,7 @@ define([
     $loginBtn.on('click', function (event) {
         // TODO more strict validation on login parameters
         // (username exists, password correct, etc.)
-        if ($username.val().length && $password.val().length)
+        //if ($username.val().length && $password.val().length)
             // going right to instructor view and using dummy assignment ID
             instructorView.show("0");
     });

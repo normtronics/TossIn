@@ -1,0 +1,74 @@
+<div class="row-fluid">
+	<div class="col-lg-6" id="ex-main-pane">
+		<div class="row-fluid">
+			<div class="col-lg-12 header row-fluid">
+				<div class="col-lg-9">
+					<h1>Create and Edit Toss-in Exercises</h1>
+				</div>
+				
+				<div class="col-lg-3">
+					<button type="button" style="float: right;" class="btn btn-info save-button">
+						Save 
+						<i class="glyphicon glyphicon-floppy-disk"/>
+					</button>
+				</div>
+			</div>
+		</div>
+		
+		
+		<div id="ex-edit-pane" class="col-lg-12 row-fluid">
+			<div class="col-lg-6" id="ex-options-pane">
+				<div class="sub-header">
+					<h3>Options</h3>
+				</div>
+				
+				<div>
+					Name
+					<input id="ex-name" class="input input-large"></input>
+				</div>
+				
+				<div>
+					Description
+					<input id="ex-description" class="input input-large"></input>
+				</div>
+				
+				<div>
+					Randomize Order
+					<input id="rndm-order" type="checkbox"></input>
+				</div>
+				
+				<div>
+					<div>
+						<input type="radio" name="time-limit" id="time"></input>
+						Time Limit
+						<input type="radio" name="time-limit" id="interval"></input>
+						Interval
+						
+						<input type="number"></input>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-lg-6" id="wordlist-pane">
+				<div class="sub-header">
+					<h3>Word List</h3>
+				</div>
+				
+				<div class="word-list">
+					<ol>
+						<li>
+							<input class="input input-medium"></input>
+							<button type="button" class="btn btn-danger" onclick="EXERCISE_CREATE.remove_word(this)">
+								<i class="glyphicon glyphicon-trash"></i>
+							</button>
+							
+							<button type="button" class="btn btn-success add-button" onclick="EXERCISE_CREATE.add_word(this)">
+								<i class="glyphicon glyphicon-plus"></i>
+							</button>
+						</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
