@@ -181,10 +181,30 @@ body {
 
 #right-pane {
     float: left;
+    position: relative;
     width: 225px;
     height: 85%;
     margin: 45px;
-    background-color: #FFF;
+}
+
+#word-bank, #status-lights, #chat-box {
+    border: 2px solid #000;
+}
+
+#word-bank {
+    height: 35%;
+}
+
+#status-lights {
+    margin-top: 5%;
+    height: 11%;
+}
+
+#chat-box {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 50%;
 }
 
 /* Student list widget */
