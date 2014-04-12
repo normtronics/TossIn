@@ -1,9 +1,11 @@
 define([
     'jquery',
+    'underscore',
     'text!widgets/student-list/student-list.htm',
     'stringutil',
-    'jqueryui'
-], function ($, markup, stringutil) {
+    'jqueryui',
+    'mocks'
+], function ($, _, markup, stringutil) {
     var studentMarkup =
         '<div data-name="{0}" class="student-list-item">{0}</div>';
 
@@ -22,11 +24,14 @@ define([
             this.element.append($studentListItem);
         },
         _create : function () {
-            var $element = $(markup);
+            var that = this;
+            this.element.append($(markup)).addClass('studentlist');
 
-            this.element.addClass('studentlist');
-
-            this.element.append($element);
+            $.getJSON('/users/students').done(function (response) {
+                _.each(response, function (student) {
+                    that.addStudent(student.name);
+                });
+            });
         },
         _destroy : function () {
             this.element.removeClass('studentlist');

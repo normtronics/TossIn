@@ -1,0 +1,22 @@
+{
+    "students" : [
+        {
+            "name" : "Brad Bensch"
+        },
+        {
+            "name" : "Stephen Brewster"
+        },
+        {
+            "name" : "Matt Mokary"
+        },
+        {
+            "name" : "Chris Norman"
+        },
+        {
+            "name" : "Kurt Poquette"
+        }
+    ],
+    "instructors": [
+
+    ]
+}

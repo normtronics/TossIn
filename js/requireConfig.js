@@ -4,7 +4,7 @@ require.config({
         // 3rd party libraries
         jquery: 'vendor/jquery-1.10.2.min',
         jqueryui: 'vendor/jquery-ui-1.10.4.custom',
-        underscore: 'vendor/underscore.js',
+        underscore: 'vendor/underscore',
         hotkeys: 'vendor/jquery.hotkeys',
         
         // jquery plugins
@@ -20,6 +20,7 @@ require.config({
         texteditor: 'widgets/text-editor/text-editor',
 
         // utils
-        stringutil: 'util/stringutil'
+        stringutil: 'util/stringutil',
+        mocks: 'mock/mocks'
     }
 });
