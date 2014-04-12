@@ -1,0 +1,19 @@
+{
+    "0" : {
+        "0": {
+            "input": "My name is Brad. This is my input for this assignment."
+        },
+        "1": {
+            "input": "My name is Stephen. This is my input for this assignment."
+        },
+        "2": {
+            "input": "I'm Matt and this is my input for this assignment."
+        },
+        "3": {
+            "input": "I am Chris and this is my input for this assignment."
+        },
+        "4": {
+            "input": "I'm definitely not Kurt and this isn't my input."
+        }
+    }
+}

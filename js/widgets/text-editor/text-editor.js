@@ -6,10 +6,12 @@ define([
 ], function ($) {
     $.widget('tossin.texteditor', {
         options: {},
+        updateText : function (text) {
+            this.element.find('#editor').text(text);
+        },
         _create : function () {
             this.element.addClass('textarea');
-           this.element.append(
-                  + '<div id="alerts"></div>'
+           this.element.append('<div id="alerts"></div>'
                    + '<div class="btn-toolbar" data-role="editor-toolbar" data-target="#editor">'
                      + '<div class="btn-group">'
                        + '<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" title="" data-original-title="Font"><i class="glyphicon glyphicon-font"></i><b class="caret"></b></a>'
@@ -76,7 +78,6 @@ define([
                     +'</div>'
 
                     +'<div id="editor" contenteditable="true">'
-                      +'Go ahead…'
                     +'</div>'
             );
            

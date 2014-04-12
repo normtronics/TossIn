@@ -7,21 +7,31 @@ define([
     'mocks'
 ], function ($, _, markup, stringutil) {
     var studentMarkup =
-        '<div data-name="{0}" class="student-list-item">{0}</div>';
+        '<div data-id="{0}" class="student-list-item">{1}</div>';
 
     $.widget('tossin.studentlist', {
         options: {},
-        addStudent : function (name) {
+        addStudent : function (student) {
             var that = this,
-                $studentListItem = $(stringutil.format(studentMarkup, name));
+                formatted = stringutil.format(
+                    studentMarkup, student.id, student.name);
+                $studentListItem = $(formatted);
 
             $studentListItem.on('click', function () {
-                if (!$studentListItem.hasClass('selected')) {
-                    that.element.find('.selected').removeClass('selected');
-                    $studentListItem.addClass('selected');
-                }
+                that.selectStudent($(this));
             });
             this.element.append($studentListItem);
+        },
+        selectFirstStudent : function () {
+            this.selectStudent(this.element.find('.student-list-item').first());
+        },
+        selectStudent : function ($studentListItem) {
+            if (!$studentListItem.hasClass('selected')) {
+                var studentId = $studentListItem.attr('data-id');
+                this.element.find('.selected').removeClass('selected');
+                $studentListItem.addClass('selected');
+                this.options.controller.studentSelected(studentId);
+            }
         },
         _create : function () {
             var that = this;
@@ -29,8 +39,9 @@ define([
 
             $.getJSON('/users/students').done(function (response) {
                 _.each(response, function (student) {
-                    that.addStudent(student.name);
+                    that.addStudent(student);
                 });
+                that.selectFirstStudent();
             });
         },
         _destroy : function () {

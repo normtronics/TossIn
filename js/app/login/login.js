@@ -13,7 +13,8 @@ define([
         // TODO more strict validation on login parameters
         // (username exists, password correct, etc.)
         if ($username.val().length && $password.val().length)
-            instructorView.show();
+            // going right to instructor view and using dummy assignment ID
+            instructorView.show("0");
     });
 
     // each view should empty and build '#content-inner'
