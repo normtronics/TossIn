@@ -7,6 +7,7 @@
 	border: 2px solid #000;
 	margin-top : 90px;
 	padding : 0px;
+	padding-bottom : 25px;
 }
 
 #wordlist-pane {
@@ -18,16 +19,20 @@
 	border: 2px solid #000;
 }
 
-.saved-list input {
-	width : 100px;
-	margin-right : 5px;
+#ex-saved-pane .btn-danger {
+	float : right;
 }
 
-.saved-list li{
-	margin-top : 5px;
+.saved-list div {
+	background-color: #00BFFF;
+	margin: 2px;
+	text-align: center;
+	height : 36px;
+	border: 1px solid #000;
+	font-size: 20px;
 }
 
-div {
+.saved-list {
 	padding : 0px;
 }
 
@@ -45,19 +50,15 @@ div {
 	
 }
 
-.header {
+.header,.sub-header {
     text-align: center;
     color: #fff;
     font-size: 23px;
     text-shadow: 0 2px 2px rgba(0,0,0,0.5);
-	border-bottom : solid 1px black;
 }
 
-.sub-header {
-	text-align: center;
-    color: #fff;
-    font-size: 23px;
-    text-shadow: 0 2px 2px rgba(0,0,0,0.5);
+.header {
+	border-bottom : solid 1px black;
 }
 
 
