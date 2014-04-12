@@ -1,7 +1,8 @@
 define([
     'jquery',
     'text!app/instructor/instructor.htm',
-    'studentlist'
+    'studentlist',
+    'texteditor'
 ], function ($, markup) {
     var $element = $(markup);
 
@@ -11,9 +12,11 @@ define([
         $statusLights = $element.find('#status-lights'),
         $chatBox = $element.find('#chat-box');
 
+
     var api = {
         show : function () {
             $studentList.studentlist();
+            $textArea.texteditor();
 
             var $content = $('#content-inner');
             $content.empty().append($element);
