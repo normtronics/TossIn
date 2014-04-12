@@ -104,7 +104,7 @@ html, body, #content-inner {
 }
 
 body {
-    background-color: #333 !important;
+    background-color: #7EC0EE !important;
 }
 
 /* Login view */
@@ -168,7 +168,7 @@ body {
     height: 85%;
     width: 225px;
     margin: 45px;
-    background-color: #5C5C5C;
+    background-color: #009ACD;
     border: 2px solid #000;
 }
 
@@ -214,11 +214,23 @@ body {
 }
 
 #student-list > #stu-list-header {
-    background-color: #FFF;
     height: 35px;
     text-align: center;
     font-size: 20px;
+}
+
+#student-list > .student-list-item {
+    background-color: #00BFFF;
+    margin: 1px;
+    height: 30px;
+    text-align: center;
     border: 1px solid #000;
+    font-size: 18px;
+}
+
+#student-list > .student-list-item.selected {
+    background-color: #00688B !important;
+    border: 0px;
 }
 
 /* Text editor */
