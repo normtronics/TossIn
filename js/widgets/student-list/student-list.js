@@ -5,6 +5,9 @@ define([
 ], function ($, markup) {
     $.widget('tossin.studentlist', {
         options: {},
+        addStudent : function (name) {
+
+        },
         _create : function () {
             var $element = $(markup);
 

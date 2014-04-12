@@ -155,7 +155,6 @@ body {
     text-shadow: 0 2px 2px rgba(0,0,0,0.5);
 }
 
-<<<<<<< HEAD
 /* Instructor and Student views */
 /* markup defined in app/instructor/instructor.htm */
 
@@ -165,11 +164,27 @@ body {
 }
 
 #student-list {
-    height: 100%;
+    float: left;
+    height: 85%;
     width: 225px;
-    margin: 50px;
+    margin: 45px;
     background-color: #5C5C5C;
     border: 2px solid #000;
+}
+
+#text-area {
+    float: left;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    height: 100%;
+}
+
+#right-pane {
+    float: left;
+    width: 225px;
+    height: 85%;
+    margin: 45px;
+    background-color: #FFF;
 }
 
 /* Student list widget */
@@ -189,8 +204,7 @@ body {
 /* Text editor */
 
 #editor {
-    max-height: 250px;
-    height: 250px;
+    height: 70%;
     max-width: 800px;
     width: 800px;
     background-color: white;
@@ -219,6 +233,7 @@ body {
 }
 
 div[data-role="editor-toolbar"] {
+  margin-bottom: 10px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;

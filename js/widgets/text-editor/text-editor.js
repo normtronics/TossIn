@@ -1,5 +1,6 @@
 define([
     'jquery',
+    'jqueryui',
     'editor',
     'hotkeys'
 ], function ($) {
@@ -7,7 +8,7 @@ define([
         options: {},
         _create : function () {
             this.element.addClass('textarea');
-           this.element.append(' <div class=""> '
+           this.element.append(
                   + '<div id="alerts"></div>'
                    + '<div class="btn-toolbar" data-role="editor-toolbar" data-target="#editor">'
                      + '<div class="btn-group">'
@@ -77,7 +78,6 @@ define([
                     +'<div id="editor" contenteditable="true">'
                       +'Go ahead…'
                     +'</div>'
-                  +'</div>'
             );
            
            var editor = this.element.find('#editor');
