@@ -96,6 +96,12 @@ textarea {
 /* ==========================================================================
    Custom styles
    ========================================================================== */
+/* All views */
+
+html, body, #content-inner {
+    height: 100%;
+    width: 100%;
+}
 
 body {
     background-color: #333 !important;
@@ -147,6 +153,36 @@ body {
     color: #fff;
     text-align: center;
     text-shadow: 0 2px 2px rgba(0,0,0,0.5);
+}
+
+/* Instructor and Student views */
+/* markup defined in app/instructor/instructor.htm */
+
+#instructor-view {
+    height: 100%;
+    width: 100%;
+}
+
+#student-list {
+    height: 100%;
+    width: 225px;
+    margin: 50px;
+    background-color: #5C5C5C;
+    border: 2px solid #000;
+}
+
+/* Student list widget */
+
+#student-list {
+    overflow: auto;
+}
+
+#student-list > #stu-list-header {
+    background-color: #FFF;
+    height: 35px;
+    text-align: center;
+    font-size: 20px;
+    border: 1px solid #000;
 }
 
 /* ==========================================================================

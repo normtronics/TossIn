@@ -1,12 +1,16 @@
 define([
     'jquery',
+    'text!widgets/student-list/student-list.htm',
     'jqueryui'
-], function ($) {
+], function ($, markup) {
     $.widget('tossin.studentlist', {
         options: {},
         _create : function () {
+            var $element = $(markup);
+
             this.element.addClass('studentlist');
-            this.element.text('This is the student list widget');
+
+            this.element.append($element);
         },
         _destroy : function () {
             this.element.removeClass('studentlist');
