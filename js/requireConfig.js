@@ -18,6 +18,7 @@ require.config({
         // widgets
         studentlist: 'widgets/student-list/student-list',
         texteditor: 'widgets/text-editor/text-editor',
+		wordbank: 'widgets/word-bank/word-bank',
 
         // utils
         stringutil: 'util/stringutil',

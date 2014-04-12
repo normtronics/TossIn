@@ -236,6 +236,35 @@ body {
     border: 0px;
 }
 
+/* Word Bank */
+
+#word-bank {
+    overflow: auto;
+}
+
+#word-bank > #word-bank-header {
+    height: 35px;
+    text-align: center;
+    color: #fff;
+    font-size: 23px;
+    text-shadow: 0 2px 2px rgba(0,0,0,0.5);
+}
+
+#word-bank > .word-bank-item {
+    background-color: #00BFFF;
+    margin: 1px;
+    height: 30px;
+    text-align: center;
+    border: 1px solid #000;
+    font-size: 20px;
+}
+
+#word-bank > .word-bank-item.selected {
+    color: #fff;
+    background-color: #00688B !important;
+    border: 0px;
+}
+
 /* Text editor */
 
 #editor {

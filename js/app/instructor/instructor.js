@@ -4,6 +4,7 @@ define([
     'stringutil',
     'studentlist',
     'texteditor',
+	'wordbank',
     'mocks'
 ], function ($, markup, stringutil) {
     var $element = $(markup);
@@ -20,6 +21,7 @@ define([
         show : function (assgnmntId) {
             $studentList.studentlist({controller : api});
             $textArea.texteditor();
+			$wordBank.wordbank();
             assignmentId = assgnmntId;
 
             var $content = $('#content-inner');

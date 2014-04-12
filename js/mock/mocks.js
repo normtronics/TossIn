@@ -4,6 +4,7 @@ define([
     'mockjax'
 ], function (usersJSON, inputsJSON) {
     
+	console.log(usersJSON);
     var users = JSON.parse(usersJSON),
         inputs = JSON.parse(inputsJSON);
 
@@ -13,6 +14,13 @@ define([
         type: 'GET',
         responseTime: 0,
         responseText: users.students
+    });
+	
+	$.mockjax({
+        url: /\/users\/words/,
+        type: 'GET',
+        responseTime: 0,
+        responseText: users.words
     });
 
     // get student's input for given assignment
