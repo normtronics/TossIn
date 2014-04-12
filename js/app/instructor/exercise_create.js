@@ -45,6 +45,12 @@ EXERCISE_CREATE.remove_word =
 		$('#wordlist-pane li:last').append( EXERCISE_CREATE.get_add_button );
 	};
 	
+//Removes an exercise from the list
+EXERCISE_CREATE.remove_exercise =
+	function (button) {
+		$(button).closest('li').detach();
+	};
+	
 //Returns the html for an add button
 EXERCISE_CREATE.get_add_button =
 	function () {
@@ -55,7 +61,7 @@ EXERCISE_CREATE.get_add_button =
 EXERCISE_CREATE.get_exercise_li =
 	function (se) {
 		return '<li><input type="text" class="saved-exercise" value="'+se.name+'"></input>'
-					+'<button type="button" class="btn btn-danger">'
+					+'<button type="button" class="btn btn-danger" onclick="EXERCISE_CREATE.remove_exercise(this)">'
 						+'<i class="glyphicon glyphicon-trash" />'
 					+'</button>'
 				+'</li>'
@@ -96,4 +102,23 @@ EXERCISE_CREATE.loadSavedExercises =
 			var li = EXERCISE_CREATE.get_exercise_li(se[x]);
 			$('.saved-list ol').append(li);
 		}
+	};
+	
+//Saves current exercise
+EXERCISE_CREATE.saveExercise =
+	function () {
+		var data = {
+			name : $('#ex-name').val(),
+			description : $('#ex-description').val(),
+		};
+		
+		var words = [];
+		$('.word-list li input').each(function () {
+			words.push(this.value);
+		});
+		
+		data.words = words;
+		EXERCISE_CREATE.savedExercises.push(data);
+		var li = this.get_exercise_li(data);
+		$('.saved-list ol').append(li);
 	};
