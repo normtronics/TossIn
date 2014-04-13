@@ -2,6 +2,10 @@
 
 var EXERCISE_CREATE = {};
 
+var WORD_BANK = '';
+var STATUS = '';
+var CHAT_BOX = '';
+
 EXERCISE_CREATE.word_count = 1;
 
 //Initializes the exercise create widget
@@ -15,9 +19,13 @@ EXERCISE_CREATE.initExerciseCreate =
 //Alters visibility of page elements to display only exercise create panels
 EXERCISE_CREATE.initVisibility =
 	function () {
+		WORD_BANK = $('#word-bank');
+		STATUS = $('#status-lights');
+		CHAT_BOX = $('#chat-box');
+		
 		$('#student-list').css('visibility', 'hidden');
 		$('#text-area').css('display', 'none');
-		$('#exercise-create').show();
+		//$('#ex-main-pane').show();
 	};
 	
 //Loads the .htm files into the page elements 
@@ -80,7 +88,8 @@ EXERCISE_CREATE.initTeacherExerciseView =
 	function () {
 		$('#text-area').show();
 		$('#student-list').css('visibility', '');
-		$('#exercise-create').hide();
+		$('#ex-saved-pane,#ex-main-pane').hide();
+		$('#right-pane').append(WORD_BANK).append(STATUS).append(CHAT_BOX);
 	};
 	
 //This loads the current list of saved exercises into the data structure
