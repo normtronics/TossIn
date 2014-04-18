@@ -36,7 +36,6 @@ EXERCISE_CREATE.buildView =
 				EXERCISE_CREATE.loadSavedExercises();
 			});
 		});
-		
 	};
 	
 //Removes a word from the word bank, delete button passes itself in and deletes the nears <li>
@@ -44,6 +43,7 @@ EXERCISE_CREATE.remove_word =
 	function (button) {
 		//Never delete last word bank in list
 		if( $('#wordlist-pane li').length == 1) {
+			$('#wordlist-pane input').val('');
 			return;
 		}
 		//Remove the word bank
@@ -54,7 +54,7 @@ EXERCISE_CREATE.remove_word =
 	};
 	
 //Removes an exercise from the list
-EXERCISE_CREATE.remove_exercise =
+EXERCISE_CREATE.removeExercise =
 	function (button) {
 		$(button).closest('div').detach();
 	};
@@ -66,10 +66,17 @@ EXERCISE_CREATE.get_add_button =
 	};
 
 //Returns an li stubb for the saved exercises list
-EXERCISE_CREATE.get_exercise_li =
+EXERCISE_CREATE.get_exercise_div =
 	function (se) {
-		return '<div>'+se.name
-					+'<button type="button" class="btn btn-danger" onclick="EXERCISE_CREATE.remove_exercise(this)">'
+		return '<div data-pk="' + se.pk +'" class="row-fluid">'
+					+'<span class="saved-exercise-name">'+se.name+'</span>'
+					+'<button type="button" class="btn btn-success" onclick="EXERCISE_CREATE.loadExercise(this)">'
+						+'<i class="glyphicon glyphicon-pencil" />'
+					+'</button>'
+					+'<button type="button" class="btn btn-warning" onclick="EXERCISE_CREATE.launchExercise(this)">'
+						+'<i class="glyphicon glyphicon-plane"/>'
+					+'</button>'
+					+'<button type="button" class="btn btn-danger" onclick="EXERCISE_CREATE.removeExercise(this)">'
 						+'<i class="glyphicon glyphicon-trash" />'
 					+'</button>'
 				+'</div>'
@@ -95,21 +102,26 @@ EXERCISE_CREATE.initTeacherExerciseView =
 //This loads the current list of saved exercises into the data structure
 EXERCISE_CREATE.loadSavedExercises =
 	function () {
-		EXERCISE_CREATE.savedExercises = [
-			{
-				pk : 1,
-				name : 'Exercise 1',
+		EXERCISE_CREATE.savedExercises = {
+			'Ex. 1' : {
+				name : 'Ex. 1',
+				random : true,
 				description : 'First exercise',
 				words : ['paddle', 'a fruit', 'a number', 'boat', 'a famous actor', 'an animal', 'desk']
+			},
+			'Nouns?' : {
+				name : 'Nouns?',
+				random : false,
+				description : 'Nouns FTW!',
+				words : ['garden gnome', 'pretzel', 'Philadelphia', 'house', 'Margaret Thatcher']
 			}
-		];
+		};
 		
 		var se = EXERCISE_CREATE.savedExercises;
 		
-		for(var x = 0; x < se.length; x++) {
-			console.log(se[x].name);
-			var li = EXERCISE_CREATE.get_exercise_li(se[x]);
-			$('.saved-list').append(li);
+		for(var key in se) {
+			var div = EXERCISE_CREATE.get_exercise_div(se[key]);
+			$('.saved-list').append(div);
 		}
 	};
 	
@@ -121,13 +133,42 @@ EXERCISE_CREATE.saveExercise =
 			description : $('#ex-description').val(),
 		};
 		
+		var newExercise = (EXERCISE_CREATE.savedExercises[data.name] == undefined);
+		
 		var words = [];
 		$('.word-list li input').each(function () {
 			words.push(this.value);
 		});
 		
 		data.words = words;
-		EXERCISE_CREATE.savedExercises.push(data);
-		var li = this.get_exercise_li(data);
-		$('.saved-list').append(li);
+		EXERCISE_CREATE.savedExercises[data.name] = data;
+		if(newExercise) {
+			var div = this.get_exercise_div(data);
+			$('.saved-list').append(div);
+		}
+	};
+	
+//Loads a saved exercise and populates the edit fields
+EXERCISE_CREATE.loadExercise =
+	function (button) {
+		//Pull key out of div to locate data
+		var key = $(button).closest('div').find('.saved-exercise-name').html();
+		var loaded = EXERCISE_CREATE.savedExercises[key];
+		
+		console.log(loaded.words);
+		
+		/** Populate editable fields with loaded exercise data **/
+		$('#ex-name').val(loaded.name);
+		$('#ex-description').val(loaded.description);
+		$('#rndm-order').attr('checked', loaded.random);
+		
+		//Clear current list
+		$('.word-list li:not(:last)').detach();
+				
+		//Populate word list
+		$('.word-list input:last').val(loaded.words[0]);
+		for(var x = 1; x < loaded.words.length; x++) {
+			EXERCISE_CREATE.add_word();
+			$('.word-list input:last').val(loaded.words[x]);
+		}
 	};

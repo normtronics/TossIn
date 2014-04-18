@@ -36,9 +36,18 @@
 	padding : 0px;
 }
 
+
 .save-button {
 	float : right;
 	margin-top : 25px;
+}
+
+.saved-list div {
+	text-align : right;
+}
+
+.saved-exercise-name {
+	margin-right : 5px;
 }
 
 #ex-options-pane div {
