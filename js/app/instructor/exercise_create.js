@@ -2,6 +2,27 @@
 
 var EXERCISE_CREATE = {};
 
+EXERCISE_CREATE.savedExercises = {
+	'Ex. 1' : {
+		name : 'Ex. 1',
+		random : true,
+		description : 'First exercise',
+		words : ['paddle', 'a fruit', 'a number', 'boat', 'a famous actor', 'an animal', 'desk']
+	},
+	'Nouns!' : {
+		name : 'Nouns!',
+		random : false,
+		description : 'Nouns FTW!',
+		words : ['garden gnome', 'pretzel', 'Philadelphia', 'house', 'Margaret Thatcher']
+	},
+	'Verbs!' : {
+		name : 'Verbs!',
+		random : true,
+		description : 'Verbs are radical',
+		words : ['bring', 'relax', 'remember', 'forget', 'punch']
+	}
+};
+
 var WORD_BANK = '';
 var STATUS = '';
 var CHAT_BOX = '';
@@ -56,7 +77,10 @@ EXERCISE_CREATE.remove_word =
 //Removes an exercise from the list
 EXERCISE_CREATE.removeExercise =
 	function (button) {
-		$(button).closest('div').detach();
+		var $div = $(button).closest('div');
+		var key = $div.find('.saved-exercise-name').html();
+		delete EXERCISE_CREATE.savedExercises[key];
+		$div.detach();
 	};
 	
 //Returns the html for an add button
@@ -102,21 +126,6 @@ EXERCISE_CREATE.initTeacherExerciseView =
 //This loads the current list of saved exercises into the data structure
 EXERCISE_CREATE.loadSavedExercises =
 	function () {
-		EXERCISE_CREATE.savedExercises = {
-			'Ex. 1' : {
-				name : 'Ex. 1',
-				random : true,
-				description : 'First exercise',
-				words : ['paddle', 'a fruit', 'a number', 'boat', 'a famous actor', 'an animal', 'desk']
-			},
-			'Nouns?' : {
-				name : 'Nouns?',
-				random : false,
-				description : 'Nouns FTW!',
-				words : ['garden gnome', 'pretzel', 'Philadelphia', 'house', 'Margaret Thatcher']
-			}
-		};
-		
 		var se = EXERCISE_CREATE.savedExercises;
 		
 		for(var key in se) {
@@ -155,12 +164,10 @@ EXERCISE_CREATE.loadExercise =
 		var key = $(button).closest('div').find('.saved-exercise-name').html();
 		var loaded = EXERCISE_CREATE.savedExercises[key];
 		
-		console.log(loaded.words);
-		
 		/** Populate editable fields with loaded exercise data **/
 		$('#ex-name').val(loaded.name);
 		$('#ex-description').val(loaded.description);
-		$('#rndm-order').attr('checked', loaded.random);
+		$('#rndm-order')[0].checked = loaded.random;
 		
 		//Clear current list
 		$('.word-list li:not(:last)').detach();
