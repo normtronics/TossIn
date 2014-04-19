@@ -2,7 +2,7 @@ define([
     'jquery',
     'text!app/instructor/instructor.htm',
     'stringutil',
-    'studentlist',
+	'studentlist',
     'texteditor',
 	'wordbank',
     'mocks'

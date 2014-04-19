@@ -6,7 +6,7 @@ define([
     'jqueryui',
     'mocks'
 ], function ($, _, markup, stringutil) {
-    var wordMarkup =
+	var wordMarkup =
         '<div data-id="{0}" class="word-bank-item">{1}</div>';
 
     $.widget('tossin.wordbank', {
