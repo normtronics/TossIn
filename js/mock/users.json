@@ -2,41 +2,41 @@
     "students" : [
         {
             "id" : 0,
-            "name" : "Brad Bensch"
+            "name" : "Brad Bensch",
             "username" : "bbensch",
-            "password" : ''
+            "password" : ""
         },
         {
             "id" : 1,
-            "name" : "Stephen Brewster"
+            "name" : "Stephen Brewster",
             "username" : "sbrewster",
-            "password" : ''
+            "password" : ""
         },
         {
             "id" : 2,
-            "name" : "Matt Mokary"
+            "name" : "Matt Mokary",
             "username" : "mmokary",
-            "password" : ''
+            "password" : ""
         },
         {
             "id" : 3,
-            "name" : "Chris Norman"
+            "name" : "Chris Norman",
             "username" : "cnorman",
-            "password" : ''
+            "password" : ""
         },
         {
             "id" : 4,
-            "name" : "Kurt Poquette"
+            "name" : "Kurt Poquette",
             "username" : "kpoquette",
-            "password" : ''
+            "password" : ""
         }
     ],
     "instructors": [
         {
             "id" : 0,
-            "name" : "Bob Kuehl"
+            "name" : "Bob Kuehl",
             "username" : "bkuehl",
-            "password" : ''
+            "password" : ""
         }
     ],
 	"words": [

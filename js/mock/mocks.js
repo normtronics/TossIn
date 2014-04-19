@@ -4,7 +4,6 @@ define([
     'mockjax'
 ], function (usersJSON, inputsJSON) {
     
-	console.log(usersJSON);
     var users = JSON.parse(usersJSON),
         inputs = JSON.parse(inputsJSON);
 

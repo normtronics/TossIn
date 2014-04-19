@@ -23,7 +23,6 @@ define([
     'app/registration/registration'
 ], function ($, markup, instructorView, registrationView) {
     var $element = $(markup);
-    $element.append('<a href="#" id="reg">Register</a>');
 
     var $username = $element.find('input[type=text]'),
         $password = $element.find('input[type=password]');
