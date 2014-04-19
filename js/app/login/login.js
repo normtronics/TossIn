@@ -19,9 +19,11 @@ var USER_CREDENTIALS = {
 define([
     'jquery',
     'text!app/login/login.htm',
-    'app/instructor/instructor'
-], function ($, markup, instructorView) {
+    'app/instructor/instructor',
+    'app/registration/registration'
+], function ($, markup, instructorView, registrationView) {
     var $element = $(markup);
+    $element.append('<a href="#" id="reg">Register</a>');
 
     var $username = $element.find('input[type=text]'),
         $password = $element.find('input[type=password]');
@@ -39,6 +41,12 @@ define([
 				//Show student view
 			}	
 		}
+    });
+
+
+    var $regBtn = $element.find('#reg');
+    $regBtn.on('click', function (event) {
+        registrationView.show();
     });
 
     // each view should empty and build '#content-inner'

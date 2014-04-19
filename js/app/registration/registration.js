@@ -14,7 +14,7 @@ define([
         $lastName = $element.find('#lastname');
 
     var $regBtn = $element.find('#register-submit');
-    $regBtn.on('click', function (event) {
+    /*$regBtn.on('click', function (event) {
             
             if(!$username.val() || !$ID.val() 
                 || !$email.val() || !$firstName.val() 
@@ -28,10 +28,15 @@ define([
             }else{
                 instructorView.show("0");
             };
-    });
+    });*/
 
-    // each view should empty and build '#content-inner'
-    var $content = $('#content-inner');
-    $content.empty()
-    $content.append($element);
+
+    var api = {
+        show : function () {
+            var $content = $('#content-inner');
+            $content.empty().append($element);
+        },
+    };
+
+    return api;
 });
