@@ -4,41 +4,42 @@
         "type" : "STUDENT",
         "name" : "Brad Bensch",
         "username" : "bbensch",
-        "password" : "5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8"
+        "__comment" : "The password in plaintext is 'password'",
+        "passwordHash" : "5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8"
     },
     {
         "id" : 1,
         "type" : "STUDENT",
         "name" : "Stephen Brewster",
         "username" : "sbrewster",
-        "password" : "5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8"
+        "passwordHash" : "5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8"
     },
     {
         "id" : 2,
         "type" : "STUDENT",
         "name" : "Matt Mokary",
         "username" : "mmokary",
-        "password" : "5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8"
+        "passwordHash" : "5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8"
     },
     {
         "id" : 3,
         "type" : "STUDENT",
         "name" : "Chris Norman",
         "username" : "cnorman",
-        "password" : "5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8"
+        "passwordHash" : "5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8"
     },
     {
         "id" : 4,
         "type" : "STUDENT",
         "name" : "Kurt Poquette",
         "username" : "kpoquette",
-        "password" : "5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8"
+        "passwordHash" : "5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8"
     },
     {
         "id" : 5,
         "type" : "INSTRUCTOR",
         "name" : "Bob Kuehl",
         "username" : "bkuehl",
-        "password" : "5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8"
+        "passwordHash" : "5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8"
     }
 ]

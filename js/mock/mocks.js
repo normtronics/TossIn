@@ -31,9 +31,15 @@ define([
         type: 'GET',
         responseTime: 0,
         response: function (settings) {
-            this.responseText = _.find(users, function (user) {
-                return user.username = settings.urlParams.username;
-            }).password == settings.urlParams.passwordHash ? 'true' : 'false';
+            var user = _.find(users, function (user) {
+                return user.username == settings.urlParams.username;
+            });
+
+            if (_.isUndefined(user)) {
+                this.responseText = '';
+            } else if (user.passwordHash == settings.urlParams.passwordHash) {
+                this.responseText = JSON.stringify(_.omit(user,'passwordHash'));
+            }
         }
     });
 
