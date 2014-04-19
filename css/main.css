@@ -308,6 +308,21 @@ div[data-role="editor-toolbar"] {
   cursor: pointer;
 }
 
+/*Registration View*/
+.registration {
+    margin-bottom: 5px !important;
+    border-bottom-left-radius: 5px !important;
+    border-bottom-right-radius: 5px !important;
+    border-bottom-style: solid !important;  
+    border-top-style: solid !important; 
+    border-top-left-radius: 5px !important; 
+    border-top-right-radius: 5px !important;
+}
+
+#registration-form{
+    margin-top: 10%;
+}
+
 /* ==========================================================================
    Helper classes
    ========================================================================== */
