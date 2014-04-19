@@ -19,6 +19,7 @@ require.config({
         studentlist: 'widgets/student-list/student-list',
         texteditor: 'widgets/text-editor/text-editor',
 		wordbank: 'widgets/word-bank/word-bank',
+		exercisecreate: 'widgets/exercise-create/exercise_create',
 
         // utils
         stringutil: 'util/stringutil',

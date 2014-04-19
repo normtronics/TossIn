@@ -19,9 +19,9 @@ var USER_CREDENTIALS = {
 define([
     'jquery',
     'text!app/login/login.htm',
-    'app/instructor/instructor',
+	'app/exercise-create/exercisecreate',
     'app/registration/registration'
-], function ($, markup, instructorView, registrationView) {
+], function ($, markup, exerciseCreateView, registrationView) {
     var $element = $(markup);
 
     var $username = $element.find('input[type=text]'),
@@ -34,8 +34,7 @@ define([
 		if(user != undefined && $password.val() === user.password) {
 			//Show view as defined by userType
 	        if(user.userType === 'instructor') {
-				instructorView.show("0");
-				EXERCISE_CREATE.loadSavedExercises();		
+				exerciseCreateView.show();		
 			} else if (user.userType === 'student') {
 				//Show student view
 			}	
