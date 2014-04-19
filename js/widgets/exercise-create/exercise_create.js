@@ -27,7 +27,7 @@ EXERCISE_CREATE.savedExercises = {
 /** Initializes the exercise create widget **/
 EXERCISE_CREATE.initExerciseCreate =
 	function () {
-		$('#exercise-create').load('js/app/instructor/exercise_create.htm');
+		$('#exercise-create').load('js/widgets/exercise-create/exercise_create.htm');
 		this.initVisibility();
 		console.log("Loaded exercise create module");
 	};
