@@ -2,11 +2,11 @@ define([
     'jquery',
     'text!app/instructor/instructor.htm',
     'stringutil',
+	'wordbank',
 	'studentlist',
     'texteditor',
-	'wordbank',
-    'mocks'
-], function ($, markup, stringutil) {
+	'mocks'
+], function ($, markup, stringutil, wordbank) {
     var $element = $(markup);
 
     var $studentList = $element.find('#student-list'),
@@ -22,6 +22,7 @@ define([
             $studentList.studentlist({controller : api});
             $textArea.texteditor();
 			$wordBank.wordbank({controller : api});
+			//$wordBank.wordbank()
             assignmentId = assgnmntId;
 
             var $content = $('#content-inner');

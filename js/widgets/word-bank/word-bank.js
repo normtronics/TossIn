@@ -12,6 +12,7 @@ define([
     $.widget('tossin.wordbank', {
         options: {},
         addWord : function (word) {
+			console.log("Word added",word);
             var that = this,
                 formatted = stringutil.format(
                     wordMarkup, word.id, word.name);
@@ -33,16 +34,23 @@ define([
                 this.options.controller.wordSelected(wordId);
             }
         },
+		runWordPopulate : function (words) {
+			var that = this;
+			
+			if(words.length > 0) {
+				setTimeout(function () {
+					that.addWord(words[0]);
+					words.splice(0,1);
+					that.runWordPopulate(words);
+				}, 1000);	
+			}
+		},
         _create : function () {
-            var that = this;
+			var that = this;
             this.element.append($(markup)).addClass('wordbank');
 
             $.getJSON('/users/words').done(function (response) {
-                _.each(response, function (word) {
-					console.log(word);
-                    that.addWord(word);		//Possibly add pause here for time
-                });
-                that.selectFirstWord();
+                that.runWordPopulate(response);
             });
         },
         _destroy : function () {
