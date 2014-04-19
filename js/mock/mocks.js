@@ -1,11 +1,13 @@
 define([
     'text!mock/users.json',
     'text!mock/inputs.json',
+    'text!mock/words.json',
     'mockjax'
-], function (usersJSON, inputsJSON) {
+], function (usersJSON, inputsJSON, wordsJSON) {
     
     var users = JSON.parse(usersJSON),
-        inputs = JSON.parse(inputsJSON);
+        inputs = JSON.parse(inputsJSON),
+        words = JSON.parse(wordsJSON);
 
     // get all students
     $.mockjax({
@@ -16,10 +18,23 @@ define([
     });
 	
 	$.mockjax({
+        // TODO make this per-assignment
         url: /\/users\/words/,
         type: 'GET',
         responseTime: 0,
-        responseText: users.words
+        responseText: words
+    });
+
+    $.mockjax({
+        url: /\/users\/validation\?username=([a-zA-Z0-9]+)&pass=([a-fA-F0-9]{40})/,
+        urlParams: ['username', 'passwordHash'],
+        type: 'GET',
+        responseTime: 0,
+        response: function (settings) {
+            this.responseText = _.find(users, function (user) {
+                return user.username = settings.urlParams.username;
+            }).password == settings.urlParams.passwordHash ? 'true' : 'false';
+        }
     });
 
     // get student's input for given assignment

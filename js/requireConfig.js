@@ -22,6 +22,7 @@ require.config({
 
         // utils
         stringutil: 'util/stringutil',
+        hash: 'util/hash',
         mocks: 'mock/mocks'
     }
 });

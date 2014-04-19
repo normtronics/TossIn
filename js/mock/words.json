@@ -1,0 +1,26 @@
+[
+    {
+        "id" : 0,
+        "name" : "Seattle"
+    },
+    {
+        "id" : 1,
+        "name" : "Coffee"
+    },
+    {
+        "id" : 2,
+        "name" : "Zoo"
+    },
+    {
+        "id" : 3,
+        "name" : "Adventure"
+    },
+    {
+        "id" : 4,
+        "name" : "Distraction"
+    },
+    {
+        "id" : 5,
+        "name" : "Board"
+    }
+]

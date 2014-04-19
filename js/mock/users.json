@@ -1,68 +1,44 @@
-{
-    "students" : [
-        {
-            "id" : 0,
-            "name" : "Brad Bensch",
-            "username" : "bbensch",
-            "password" : ""
-        },
-        {
-            "id" : 1,
-            "name" : "Stephen Brewster",
-            "username" : "sbrewster",
-            "password" : ""
-        },
-        {
-            "id" : 2,
-            "name" : "Matt Mokary",
-            "username" : "mmokary",
-            "password" : ""
-        },
-        {
-            "id" : 3,
-            "name" : "Chris Norman",
-            "username" : "cnorman",
-            "password" : ""
-        },
-        {
-            "id" : 4,
-            "name" : "Kurt Poquette",
-            "username" : "kpoquette",
-            "password" : ""
-        }
-    ],
-    "instructors": [
-        {
-            "id" : 0,
-            "name" : "Bob Kuehl",
-            "username" : "bkuehl",
-            "password" : ""
-        }
-    ],
-	"words": [
-		{
-			"id" : 0,
-			"name" : "Seattle"
-		},
-		{
-			"id" : 1,
-			"name" : "Coffee"
-		},
-		{
-			"id" : 2,
-			"name" : "Zoo"
-		},
-		{
-			"id" : 3,
-			"name" : "Adventure"
-		},
-		{
-			"id" : 4,
-			"name" : "Distraction"
-		},
-		{
-			"id" : 5,
-			"name" : "Board"
-		}
-	]
-}
+[
+    {
+        "id" : 0,
+        "type" : "STUDENT",
+        "name" : "Brad Bensch",
+        "username" : "bbensch",
+        "password" : "5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8"
+    },
+    {
+        "id" : 1,
+        "type" : "STUDENT",
+        "name" : "Stephen Brewster",
+        "username" : "sbrewster",
+        "password" : "5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8"
+    },
+    {
+        "id" : 2,
+        "type" : "STUDENT",
+        "name" : "Matt Mokary",
+        "username" : "mmokary",
+        "password" : "5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8"
+    },
+    {
+        "id" : 3,
+        "type" : "STUDENT",
+        "name" : "Chris Norman",
+        "username" : "cnorman",
+        "password" : "5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8"
+    },
+    {
+        "id" : 4,
+        "type" : "STUDENT",
+        "name" : "Kurt Poquette",
+        "username" : "kpoquette",
+        "password" : "5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8"
+    },
+    {
+        "id" : 5,
+        "type" : "INSTRUCTOR",
+        "name" : "Bob Kuehl",
+        "username" : "bkuehl",
+        "password" : "5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8"
+    }
+]
