@@ -3,28 +3,40 @@
         {
             "id" : 0,
             "name" : "Brad Bensch"
+            "username" : "bbensch",
+            "password" : ''
         },
         {
             "id" : 1,
             "name" : "Stephen Brewster"
+            "username" : "sbrewster",
+            "password" : ''
         },
         {
             "id" : 2,
             "name" : "Matt Mokary"
+            "username" : "mmokary",
+            "password" : ''
         },
         {
             "id" : 3,
             "name" : "Chris Norman"
+            "username" : "cnorman",
+            "password" : ''
         },
         {
             "id" : 4,
             "name" : "Kurt Poquette"
+            "username" : "kpoquette",
+            "password" : ''
         }
     ],
     "instructors": [
         {
             "id" : 0,
             "name" : "Bob Kuehl"
+            "username" : "bkuehl",
+            "password" : ''
         }
     ],
 	"words": [
