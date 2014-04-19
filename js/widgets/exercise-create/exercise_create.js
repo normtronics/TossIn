@@ -2,6 +2,7 @@
 
 var EXERCISE_CREATE = {};
 
+/** Initial Data **/
 EXERCISE_CREATE.savedExercises = {
 	'Ex. 1' : {
 		name : 'Ex. 1',
@@ -23,9 +24,7 @@ EXERCISE_CREATE.savedExercises = {
 	}
 };
 
-EXERCISE_CREATE.word_count = 1;
-
-//Initializes the exercise create widget
+/** Initializes the exercise create widget **/
 EXERCISE_CREATE.initExerciseCreate =
 	function () {
 		$('#exercise-create').load('js/app/instructor/exercise_create.htm');
@@ -33,7 +32,7 @@ EXERCISE_CREATE.initExerciseCreate =
 		console.log("Loaded exercise create module");
 	};
 	
-//Alters visibility of page elements to display only exercise create panels
+/** Alters visibility of page elements to display only exercise create panels **/
 EXERCISE_CREATE.initVisibility =
 	function () {
 		$('#student-list').css('visibility', 'hidden');
@@ -41,6 +40,7 @@ EXERCISE_CREATE.initVisibility =
 		$('#exercise-create,#ex-saved-pane').show();
 	};
 
+/** Changes back to Instructor View **/
 EXERCISE_CREATE.initTeacherExerciseView =
 	function () {
 		$('#text-area,#word-bank,#status-lights,#chat-box').show();
@@ -48,7 +48,7 @@ EXERCISE_CREATE.initTeacherExerciseView =
 		$('#exercise-create,#ex-saved-pane').hide();
 	};
 	
-//Removes a word from the word bank, delete button passes itself in and deletes the nears <li>
+/** Removes a word from the word bank, delete button passes itself in and deletes the nears <li> **/
 EXERCISE_CREATE.remove_word =
 	function (button) {
 		//Never delete last word bank in list
@@ -63,7 +63,7 @@ EXERCISE_CREATE.remove_word =
 		$('#wordlist-pane li:last').append( EXERCISE_CREATE.get_add_button );
 	};
 	
-//Removes an exercise from the list
+/** Removes an exercise from the list **/
 EXERCISE_CREATE.removeExercise =
 	function (button) {
 		var $div = $(button).closest('div');
@@ -72,13 +72,13 @@ EXERCISE_CREATE.removeExercise =
 		$div.detach();
 	};
 	
-//Returns the html for an add button
+/** Returns the html for an add button **/
 EXERCISE_CREATE.get_add_button =
 	function () {
 		return '<button type="button" class="btn btn-success add-button" onclick="EXERCISE_CREATE.add_word(this)"><i class="glyphicon glyphicon-plus"/></button>';
 	};
 
-//Returns an li stubb for the saved exercises list
+/** Returns an li stubb for the saved exercises list **/
 EXERCISE_CREATE.get_exercise_div =
 	function (se) {
 		return '<div data-pk="' + se.pk +'" class="row-fluid">'
@@ -96,7 +96,7 @@ EXERCISE_CREATE.get_exercise_div =
 				;
 	};
 	
-//Adds a word bank to the word list
+/** Adds a word bank to the word list **/
 EXERCISE_CREATE.add_word =
 	function () {
 		var li = $('#wordlist-pane ol').find('li:last').clone();
@@ -104,7 +104,7 @@ EXERCISE_CREATE.add_word =
 		$('#wordlist-pane ol').append(li);
 	};	
 	
-//This loads the current list of saved exercises into the data structure
+/** This loads the current list of saved exercises into the data structure **/
 EXERCISE_CREATE.loadSavedExercises =
 	function () {
 		var se = EXERCISE_CREATE.savedExercises;
@@ -115,7 +115,7 @@ EXERCISE_CREATE.loadSavedExercises =
 		}
 	};
 	
-//Saves current exercise
+/** Saves current exercise **/
 EXERCISE_CREATE.saveExercise =
 	function () {
 		var data = {
@@ -138,7 +138,7 @@ EXERCISE_CREATE.saveExercise =
 		}
 	};
 	
-//Loads a saved exercise and populates the edit fields
+/** Loads a saved exercise and populates the edit fields **/
 EXERCISE_CREATE.loadExercise =
 	function (button) {
 		//Pull key out of div to locate data

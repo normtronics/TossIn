@@ -1,3 +1,21 @@
+
+
+var USER_CREDENTIALS = {
+	'admin' : {
+		userType : 'instructor',
+		password : ''
+	},
+	'student' : {
+		userType : 'student',
+		password : ''
+	},
+	'' : {
+		userType : 'instructor',
+		password : ''
+	}
+};
+
+
 define([
     'jquery',
     'text!app/login/login.htm',
@@ -10,12 +28,17 @@ define([
 
     var $loginBtn = $element.find('#login-submit');
     $loginBtn.on('click', function (event) {
-        // TODO more strict validation on login parameters
-        // (username exists, password correct, etc.)
-        //if ($username.val().length && $password.val().length)
-            // going right to instructor view and using dummy assignment ID
-            instructorView.show("0");
-			EXERCISE_CREATE.loadSavedExercises();
+        //Get user from struct
+		var user = USER_CREDENTIALS[$username.val()];
+		if(user != undefined && $password.val() === user.password) {
+			//Show view as defined by userType
+	        if(user.userType === 'instructor') {
+				instructorView.show("0");
+				EXERCISE_CREATE.loadSavedExercises();		
+			} else if (user.userType === 'student') {
+				//Show student view
+			}	
+		}
     });
 
     // each view should empty and build '#content-inner'
