@@ -21,11 +21,14 @@ define([
         show : function (assgnmntId) {
             $studentList.studentlist({controller : api});
             $textArea.texteditor();
-			$wordBank.wordbank();
+			$wordBank.wordbank({controller : api});
             assignmentId = assgnmntId;
 
             var $content = $('#content-inner');
             $content.empty().append($element);
+        },
+        wordSelected : function (wordId) {
+            console.log("Selected word with ID: " + wordId);
         },
         studentSelected : function (studentId) {
             var url = stringutil.format('/assignments/{0}/input/{1}',
