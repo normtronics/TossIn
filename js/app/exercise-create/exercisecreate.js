@@ -1,42 +1,30 @@
 define([
 	'jquery',
-	'instructor',
+	'text!app/instructor/instructor.htm',
+	'text!app/exercise-create/exercise_create.htm',
+	'stringutil',
+	'app/instructor/instructor',
 	'mocks',
-], function ($) {
-	/** Initial Data **/
-	var savedExercises = {
-		'Ex. 1' : {
-			name : 'Ex. 1',
-			random : true,
-			description : 'First exercise',
-			words : ['paddle', 'a fruit', 'a number', 'boat', 'a famous actor', 'an animal', 'desk']
-		},
-		'Nouns!' : {
-			name : 'Nouns!',
-			random : false,
-			description : 'Nouns FTW!',
-			words : ['garden gnome', 'pretzel', 'Philadelphia', 'house', 'Margaret Thatcher']
-		},
-		'Verbs!' : {
-			name : 'Verbs!',
-			random : true,
-			description : 'Verbs are radical',
-			words : ['bring', 'relax', 'remember', 'forget', 'punch']
-		}
-	};
-	
-	$('#exercise-create').load('js/widgets/exercise-create/exercise_create.htm');
-	
+], function ($, markup, ex_markup, stringutil) {
+	var $element = $(markup);
+		
+	var $exercise = $element.find('#exercise-create'),
+        $savedlist = $element.find('#ex-saved-pane');
+		
 	var api = {
 		/** Shows the exercise create interface **/
 		show : function () {
-			$('#student-list').css('visibility', 'hidden');
-			$('#text-area,#word-bank,#status-lights,#chat-box').css('display', 'none');
-			$('#exercise-create,#ex-saved-pane').show();
+			var $content = $('#content-inner');
+			$content.empty().append($element);
+			$('#exercise-create').append(ex_markup);
+			$('#ex-saved-pane').show();
+			$('#word-banke,#status-lights,#chat-box').hide();
+			$('#student-list').css('visibility','hidden');
+			EXERCISE_CREATE.loadSavedExercises();
 		},
 	};
 	
-	$.widget('tossin.exerciseCreate', {
+	var EXERCISE_CREATE = {
 		/** Removes a word from list **/
 		removeWord : function (button) {
 			//Never delete last word bank in list
@@ -53,36 +41,16 @@ define([
 		
 		/** Removes an exercise from the list **/
 		removeExercise : function (button) {
+			console.log("removing exercise");
 			var $div = $(button).closest('div'),
 				key = $div.find('.saved-exercise-name').html();
 			delete EXERCISE_CREATE.savedExercises[key];
 			$div.detach();
 		},
-
-		/** Returns the html for an add button **/
-		get_add_button : function () {
-			return '<button type="button" class="btn btn-success add-button" onclick="EXERCISE_CREATE.add_word(this)"><i class="glyphicon glyphicon-plus"/></button>';
-		},
-		
-		/** Returns an li stubb for the saved exercises list **/
-		get_exercise_div : function (se) {
-			return '<div data-pk="' + se.pk +'" class="row-fluid">'
-						+'<span class="saved-exercise-name">'+se.name+'</span>'
-						+'<button type="button" class="btn btn-success" onclick="EXERCISE_CREATE.loadExercise(this)">'
-							+'<i class="glyphicon glyphicon-pencil" />'
-						+'</button>'
-						+'<button type="button" class="btn btn-warning" onclick="EXERCISE_CREATE.launchExercise(this)">'
-							+'<i class="glyphicon glyphicon-plane"/>'
-						+'</button>'
-						+'<button type="button" class="btn btn-danger" onclick="EXERCISE_CREATE.removeExercise(this)">'
-							+'<i class="glyphicon glyphicon-trash" />'
-						+'</button>'
-					+'</div>'
-					;
-			},
 	
 		/** Adds a word bank to the word list **/
 		add_word : function () {
+			console.log("adding word");
 			var li = $('#wordlist-pane ol').find('li:last').clone();
 			$('#wordlist-pane li').find('.add-button').detach();
 			$('#wordlist-pane ol').append(li);
@@ -93,13 +61,15 @@ define([
 			var se = EXERCISE_CREATE.savedExercises;
 			
 			for(var key in se) {
-				var div = EXERCISE_CREATE.get_exercise_div(se[key]);
-				$('.saved-list').append(div);
+				var div = savedExerciseMarkup;
+				var formatted = stringutil.format(div, key);
+				$('.saved-list').append(formatted);
 			}
 		},
 			
 		/** Saves current exercise **/
 		saveExercise : function () {
+			console.log("saving exercise");
 			var data = {
 				name : $('#ex-name').val(),
 				description : $('#ex-description').val(),
@@ -116,8 +86,8 @@ define([
 			EXERCISE_CREATE.savedExercises[data.name] = data;
 			//Don't append a new listing if the exercise already exists
 			if(newExercise) {
-				var div = this.get_exercise_div(data);
-				$('.saved-list').append(div);
+				
+				$('.saved-list').append(savedExerciseMarkup);
 			}
 		},
 			
@@ -141,8 +111,48 @@ define([
 				EXERCISE_CREATE.add_word();
 				$('.word-list input:last').val(loaded.words[x]);
 			}
-		}
-	});
+		},
+		
+		/** Initial Data **/
+		savedExercises : {
+			'Ex. 1' : {
+				name : 'Ex. 1',
+				random : true,
+				description : 'First exercise',
+				words : ['paddle', 'a fruit', 'a number', 'boat', 'a famous actor', 'an animal', 'desk']
+			},
+			'Nouns!' : {
+				name : 'Nouns!',
+				random : false,
+				description : 'Nouns FTW!',
+				words : ['garden gnome', 'pretzel', 'Philadelphia', 'house', 'Margaret Thatcher']
+			},
+			'Verbs!' : {
+				name : 'Verbs!',
+				random : true,
+				description : 'Verbs are radical',
+				words : ['bring', 'relax', 'remember', 'forget', 'punch']
+			}
+		},
+	};
+	
+	var addWordMarkup =
+		'<button type="button" class="btn btn-success add-button" onclick="EXERCISE_CREATE.add_word(this)"><i class="glyphicon glyphicon-plus"/></button>';
+		
+	var savedExerciseMarkup =
+		'<div class="row-fluid">'
+			+'<span class="saved-exercise-name">{0}</span>'
+			+'<button type="button" class="btn btn-success" onclick="EXERCISE_CREATE.loadExercise(this)">'
+				+'<i class="glyphicon glyphicon-pencil" />'
+			+'</button>'
+			+'<button type="button" class="btn btn-warning" onclick="EXERCISE_CREATE.launchExercise(this)">'
+				+'<i class="glyphicon glyphicon-plane"/>'
+			+'</button>'
+			+'<button type="button" class="btn btn-danger" onclick="EXERCISE_CREATE.removeExercise(this)">'
+				+'<i class="glyphicon glyphicon-trash" />'
+			+'</button>'
+		+'</div>'
+	    ;
 	
 	return api;
 });

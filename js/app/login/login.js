@@ -34,8 +34,7 @@ define([
 		if(user != undefined && $password.val() === user.password) {
 			//Show view as defined by userType
 	        if(user.userType === 'instructor') {
-				exerciseCreateView.show("0");
-				EXERCISE_CREATE.loadSavedExercises();		
+				exerciseCreateView.show();		
 			} else if (user.userType === 'student') {
 				//Show student view
 			}	
