@@ -23,40 +23,29 @@ EXERCISE_CREATE.savedExercises = {
 	}
 };
 
-var WORD_BANK = '';
-var STATUS = '';
-var CHAT_BOX = '';
-
 EXERCISE_CREATE.word_count = 1;
 
 //Initializes the exercise create widget
 EXERCISE_CREATE.initExerciseCreate =
 	function () {
+		$('#exercise-create').load('js/app/instructor/exercise_create.htm');
 		this.initVisibility();
-		this.buildView();
 		console.log("Loaded exercise create module");
 	};
 	
 //Alters visibility of page elements to display only exercise create panels
 EXERCISE_CREATE.initVisibility =
 	function () {
-		WORD_BANK = $('#word-bank');
-		STATUS = $('#status-lights');
-		CHAT_BOX = $('#chat-box');
-		
 		$('#student-list').css('visibility', 'hidden');
-		$('#text-area').css('display', 'none');
-		//$('#ex-main-pane').show();
+		$('#text-area,#word-bank,#status-lights,#chat-box').css('display', 'none');
+		$('#exercise-create,#ex-saved-pane').show();
 	};
-	
-//Loads the .htm files into the page elements 
-EXERCISE_CREATE.buildView =
+
+EXERCISE_CREATE.initTeacherExerciseView =
 	function () {
-		$('#exercise-create').load('js/app/instructor/exercise_create.htm', function () {
-			$('#right-pane').load('js/app/instructor/exercise_list.htm', function () {
-				EXERCISE_CREATE.loadSavedExercises();
-			});
-		});
+		$('#text-area,#word-bank,#status-lights,#chat-box').show();
+		$('#student-list').css('visibility', '');
+		$('#exercise-create,#ex-saved-pane').hide();
 	};
 	
 //Removes a word from the word bank, delete button passes itself in and deletes the nears <li>
@@ -114,14 +103,6 @@ EXERCISE_CREATE.add_word =
 		$('#wordlist-pane li').find('.add-button').detach();
 		$('#wordlist-pane ol').append(li);
 	};	
-	
-EXERCISE_CREATE.initTeacherExerciseView =
-	function () {
-		$('#text-area').show();
-		$('#student-list').css('visibility', '');
-		$('#ex-saved-pane,#ex-main-pane').hide();
-		$('#right-pane').append(WORD_BANK).append(STATUS).append(CHAT_BOX);
-	};
 	
 //This loads the current list of saved exercises into the data structure
 EXERCISE_CREATE.loadSavedExercises =

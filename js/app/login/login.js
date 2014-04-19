@@ -15,6 +15,7 @@ define([
         //if ($username.val().length && $password.val().length)
             // going right to instructor view and using dummy assignment ID
             instructorView.show("0");
+			EXERCISE_CREATE.loadSavedExercises();
     });
 
     // each view should empty and build '#content-inner'
