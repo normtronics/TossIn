@@ -5,26 +5,43 @@ define([
 	'stringutil',
 	'app/instructor/instructor',
 	'mocks',
-], function ($, markup, ex_markup, stringutil) {
-	var $element = $(markup);
+], function ($, markup, ex_markup, stringutil, instructorView) {
+	var $element = $(markup),
+		$ex      = $(ex_markup);
 		
 	var $exercise = $element.find('#exercise-create'),
         $savedlist = $element.find('#ex-saved-pane');
 		
+	$ex.find('.save-button').click(function () {
+		EXERCISE_CREATE.saveExercise();
+	});
+
 	var api = {
 		/** Shows the exercise create interface **/
 		show : function () {
 			var $content = $('#content-inner');
 			$content.empty().append($element);
-			$('#exercise-create').append(ex_markup);
+			
+			$('#exercise-create').append($ex);
 			$('#ex-saved-pane').show();
 			$('#word-banke,#status-lights,#chat-box').hide();
 			$('#student-list').css('visibility','hidden');
+			//Populate saved exercises list
 			EXERCISE_CREATE.loadSavedExercises();
 		},
 	};
 	
 	var EXERCISE_CREATE = {
+
+		/** Adds a word bank to the word list **/
+		addWord : function () {
+			var $li = $('#wordlist-pane ol').find('li:last').clone();
+			$('#wordlist-pane li').find('.add-word').detach();
+			
+			this.bindWordListFunctions( $li );
+			$('#wordlist-pane ol').append( $li );
+		},
+		
 		/** Removes a word from list **/
 		removeWord : function (button) {
 			//Never delete last word bank in list
@@ -32,30 +49,29 @@ define([
 				$('#wordlist-pane input').val('');
 				return;
 			}
-			//Remove the word bank
-			$(button).closest('li').detach();
-			//Remove add-button and append to last entry
-			$('#wordlist-pane li').find('.add-button').detach();
-			$('#wordlist-pane li:last').append( EXERCISE_CREATE.get_add_button );
+			
+			var $rem_li = $(button).closest('li');
+			
+			//Remove the word list element
+			$rem_li.detach();
+			
+			//Remove add button
+			$('#wordlist-pane .add-word').detach();
+			//Add button to end
+			$('#wordlist-pane li:last').append( addWordMarkup ).find('.remove-word').unbind('click');
+			EXERCISE_CREATE.bindWordListFunctions( $('#wordlist-pane li:last') );
 		},
 		
-		/** Removes an exercise from the list **/
-		removeExercise : function (button) {
-			console.log("removing exercise");
-			var $div = $(button).closest('div'),
-				key = $div.find('.saved-exercise-name').html();
-			delete EXERCISE_CREATE.savedExercises[key];
-			$div.detach();
+		/** Binds the addWord function to a button **/
+		bindWordListFunctions : function ( $ctx ) {
+			$ctx.find('.add-word').click(function () {
+				EXERCISE_CREATE.addWord();
+			});
+			$ctx.find('.remove-word').click(function () {
+				EXERCISE_CREATE.removeWord(this);
+			});
 		},
-	
-		/** Adds a word bank to the word list **/
-		add_word : function () {
-			console.log("adding word");
-			var li = $('#wordlist-pane ol').find('li:last').clone();
-			$('#wordlist-pane li').find('.add-button').detach();
-			$('#wordlist-pane ol').append(li);
-		},
-			
+
 		/** This loads the current list of saved exercises into the data structure **/
 		loadSavedExercises : function () {
 			var se = EXERCISE_CREATE.savedExercises;
@@ -65,11 +81,42 @@ define([
 				var formatted = stringutil.format(div, key);
 				$('.saved-list').append(formatted);
 			}
+			
+			this.bindSavedListFunctions( $('.saved-list') );
+		},
+		
+		/** Launches an exercise **/
+		launchExercise : function (button) {
+			var $div = $(button).closest('div'),
+				key = $div.find('.saved-exercise-name').html(),
+				exercise = EXERCISE_CREATE.savedExercises[key];
+				
+			instructorView.show(exercise);
+		},
+		
+		/** Binds the functions for the save list buttons **/
+		bindSavedListFunctions : function ( $ctx ) {
+			$ctx.find('.edit-saved').click( function () {
+				EXERCISE_CREATE.loadExercise(this);
+			});
+			$ctx.find('.launch-saved').click( function () {
+				EXERCISE_CREATE.launchExercise(this);
+			});
+			$ctx.find('.delete-saved').click( function () {
+				EXERCISE_CREATE.removeExercise(this);
+			});			
+		},
+		
+		/** Removes an exercise from the list **/
+		removeExercise : function (button) {
+			var $div = $(button).closest('div'),
+				key = $div.find('.saved-exercise-name').html();
+			delete EXERCISE_CREATE.savedExercises[key];
+			$div.detach();
 		},
 			
 		/** Saves current exercise **/
 		saveExercise : function () {
-			console.log("saving exercise");
 			var data = {
 				name : $('#ex-name').val(),
 				description : $('#ex-description').val(),
@@ -86,8 +133,9 @@ define([
 			EXERCISE_CREATE.savedExercises[data.name] = data;
 			//Don't append a new listing if the exercise already exists
 			if(newExercise) {
-				
-				$('.saved-list').append(savedExerciseMarkup);
+				var $formatted = $( stringutil.format(savedExerciseMarkup, data.name) );
+				EXERCISE_CREATE.bindSavedListFunctions( $formatted );
+				$('.saved-list').append( $formatted );
 			}
 		},
 			
@@ -108,7 +156,7 @@ define([
 			//Populate word list
 			$('.word-list input:last').val(loaded.words[0]);
 			for(var x = 1; x < loaded.words.length; x++) {
-				EXERCISE_CREATE.add_word();
+				EXERCISE_CREATE.addWord();
 				$('.word-list input:last').val(loaded.words[x]);
 			}
 		},
@@ -136,19 +184,21 @@ define([
 		},
 	};
 	
+	EXERCISE_CREATE.bindWordListFunctions( $ex );
+	
 	var addWordMarkup =
-		'<button type="button" class="btn btn-success add-button" onclick="EXERCISE_CREATE.add_word(this)"><i class="glyphicon glyphicon-plus"/></button>';
+		'<button type="button" class="btn btn-success add-word"><i class="glyphicon glyphicon-plus"/></button>';
 		
 	var savedExerciseMarkup =
 		'<div class="row-fluid">'
 			+'<span class="saved-exercise-name">{0}</span>'
-			+'<button type="button" class="btn btn-success" onclick="EXERCISE_CREATE.loadExercise(this)">'
+			+'<button type="button" class="btn btn-success edit-saved">'
 				+'<i class="glyphicon glyphicon-pencil" />'
 			+'</button>'
-			+'<button type="button" class="btn btn-warning" onclick="EXERCISE_CREATE.launchExercise(this)">'
+			+'<button type="button" class="btn btn-warning launch-saved">'
 				+'<i class="glyphicon glyphicon-plane"/>'
 			+'</button>'
-			+'<button type="button" class="btn btn-danger" onclick="EXERCISE_CREATE.removeExercise(this)">'
+			+'<button type="button" class="btn btn-danger delete-saved">'
 				+'<i class="glyphicon glyphicon-trash" />'
 			+'</button>'
 		+'</div>'
