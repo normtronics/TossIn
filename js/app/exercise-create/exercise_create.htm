@@ -7,6 +7,9 @@
 				</div>
 				
 				<div class="col-lg-3">
+					<button type="button" class="btn btn-warning clear-button">
+						Clear
+					</button>
 					<button type="button" class="btn btn-info save-button">
 						Save 
 						<i class="glyphicon glyphicon-floppy-disk"/>
@@ -24,27 +27,24 @@
 				
 				<div>
 					Name
-					<input type="text" id="ex-name" maxlength="8" placeholder="Exercise name"></input>
+					<input type="text" id="ex-name" maxlength="8" placeholder="Exercise name" class="form-control"></input>
 				</div>
 				
 				<div>
 					Description
-					<input id="ex-description" placeholder="Description of the exercise"></input>
+					<input id="ex-description" placeholder="Description of the exercise" class="form-control"></input>
 				</div>
 				
 				<div>
 					Randomize Order
-					<input id="rndm-order" type="checkbox"></input>
+					<input id="rndm-order" type="checkbox" class="form-control" style="width: 25px"></input>
 				</div>
 				
 				<div>
 					<div>
-						<input type="radio" name="time-limit" id="time"></input>
-						Time Limit
-						<input type="radio" name="time-limit" id="interval"></input>
 						Interval
 						
-						<input type="number"></input>
+						<input type="number" class="form-control" placeholder="Seconds between words"></input>
 					</div>
 				</div>
 			</div>
