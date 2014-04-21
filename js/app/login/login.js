@@ -4,9 +4,10 @@ define([
     'stringutil',
     'text!app/login/login.htm',
 	'app/exercise-create/exercisecreate',
-    'app/registration/registration'
+    'app/registration/registration',
+    'app/student/student'
 ], function ($, hash, stringutil, markup, exerciseCreateView,
-        registrationView) {
+        registrationView, studentView) {
     var $element = $(markup);
 
     var $username = $element.find('input[type=text]'),
@@ -25,8 +26,7 @@ define([
                 if(user.type === 'INSTRUCTOR') {
                     exerciseCreateView.show();		
                 } else if (user.type === 'STUDENT') {
-                    //Show student view
-                    console.log('TODO: show student view');
+                    studentView.show();
                 }	
             } else {
                 console.log('Invalid credentials');

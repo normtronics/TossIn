@@ -50,6 +50,10 @@ define([
         },
         _destroy : function () {
             this.element.removeClass('textarea');
+        },
+        disable : function () {
+            this.element.find('#editor').attr('contenteditable', false);
+            this.element.find('.btn-primary').attr('disabled', true);
         }
 
     });

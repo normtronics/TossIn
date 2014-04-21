@@ -19,8 +19,7 @@ define([
 
     var api = {
         show : function (assgnmntId) {
-            $studentList.css('visible', 'hidden');
-            $textArea.texteditor();
+            $textArea.texteditor().texteditor('disable');
 			$wordBank.wordbank();
             assignmentId = assgnmntId;
 
