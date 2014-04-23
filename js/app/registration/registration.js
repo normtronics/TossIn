@@ -25,20 +25,18 @@ define([
         $userType = $("#userType option:selected").text();
         console.log($userType);
             
-        if(!$username.val() || !$ID.val() 
-            || !$email.val() || !$firstName.val() 
-                || !$lastName.val() || !$password1.val() || !$password2.val()){
+        if(   !$username.val() || !$email.val()     || !$firstName.val() 
+           || !$lastName.val() || !$password1.val() || !$password2.val()){
                 window.alert('All fields required');
                 return;
         }
 
-        if ($password1 == undefined ) {
+        if ($password1.val() != $password2.val() ) {
             window.alert('Passwords must be equal');
             return;
         }
         else{
             var newUser = {
-                id : $ID.val(),
                 type : $userType.toUpperCase(),
                 name : $firstName.val() + " " + $lastName.val(),
                 password : hash.hex_sha1($password2.val()),

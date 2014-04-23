@@ -8,6 +8,9 @@ define([
     var users = JSON.parse(usersJSON),
         inputs = JSON.parse(inputsJSON),
         words = JSON.parse(wordsJSON);
+    
+    // TODO enforce uniqueness
+    var nextUserId = 100;
 
     // get all students
     $.mockjax({
@@ -53,7 +56,8 @@ define([
                 return user.username == settings.data.username;
             });
 
-             if (_.isUndefined(user)) {
+            if (_.isUndefined(user)) {
+                settings.data.id = "" + nextUserId++;
                 users.push(settings.data);
                 this.responseText = JSON.stringify(settings.data);
             }else{
