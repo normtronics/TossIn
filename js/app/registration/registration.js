@@ -1,8 +1,10 @@
 define([
     'jquery',
     'text!app/registration/registration.htm',
-    'app/instructor/instructor'
-], function ($, markup, instructorView) {
+    'app/exercise-create/exercisecreate',
+    'hash',
+    'app/student/student'
+], function ($, markup, exerciseView, hash, studentView) {
     var $element = $(markup);
 
     var $username = $element.find('#username'),
@@ -13,22 +15,53 @@ define([
         $firstName = $element.find('#firstname'),
         $lastName = $element.find('#lastname');
 
+
     var $regBtn = $element.find('#register-submit');
-    /*$regBtn.on('click', function (event) {
+
+
+
+    $regBtn.on('click', function (event) {
+
+        $userType = $("#userType option:selected").text();
+        console.log($userType);
             
-            if(!$username.val() || !$ID.val() 
-                || !$email.val() || !$firstName.val() 
-                    || !$lastName.val() || !password1.val() || !password2.val()){
-                window.alert('All feilds required');
+        if(!$username.val() || !$ID.val() 
+            || !$email.val() || !$firstName.val() 
+                || !$lastName.val() || !$password1.val() || !$password2.val()){
+                window.alert('All fields required');
                 return;
+        }
+
+        if ($password1 == undefined ) {
+            window.alert('Passwords must be equal');
+            return;
+        }
+        else{
+            var newUser = {
+                id : $ID.val(),
+                type : $userType.toUpperCase(),
+                name : $firstName.val() + " " + $lastName.val(),
+                password : hash.hex_sha1($password2.val()),
+                username : $username.val(),
+                email : $email.val(),
             }
 
-            if ($password1 != $password2) {
-                window.alert('Passwords must be equal');
-            }else{
-                instructorView.show("0");
-            };
-    });*/
+            console.log(newUser);
+
+            $.post('/users/create', newUser, function( data ) {
+                if(data != ''){
+                    if($userType.toUpperCase() === 'STUDENT'){
+                        studentView.show();
+                    }else if($userType.toUpperCase() === 'INSTRUCTOR'){
+                        exerciseView.show();
+
+                    }
+
+                }
+
+            });
+        }
+    });
 
 
     var api = {
