@@ -176,10 +176,12 @@ body {
     float: left;
     margin-top: 90px;
     height: 70%;
+    max-width: 800px;
+    width: 55%;
 }
 
 #right-pane {
-    float: left;
+    float: right;
     position: relative;
     width: 225px;
     height: 85%;
@@ -269,8 +271,7 @@ body {
 
 #editor {
     height: 100%;
-    max-width: 800px;
-    width: 800px;
+    width: 100%;
     background-color: white;
     border-collapse: separate; 
     border: 1px solid rgb(204, 204, 204); 

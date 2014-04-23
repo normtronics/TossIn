@@ -13,6 +13,12 @@ define([
     var $username = $element.find('input[type=text]'),
         $password = $element.find('input[type=password]');
 
+    $password.on('keyup', function (e) {
+        if (e.keyCode == 13 /* ENTER */) {
+            $loginBtn.click();
+        }
+    });
+
     var validationUrlTemplate = '/users/validation?username={0}&pass={1}';
 
     var $loginBtn = $element.find('#login-submit');
