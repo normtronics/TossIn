@@ -43,6 +43,25 @@ define([
         }
     });
 
+
+    $.mockjax({
+        url: /\/users\/create/,
+        type: 'POST',
+        responseTime: 0,
+        response: function(settings){
+            var user = _.find(users, function (user) {
+                return user.username == settings.data.username;
+            });
+
+             if (_.isUndefined(user)) {
+                users.push(settings.data);
+                this.responseText = JSON.stringify(settings.data);
+            }else{
+                this.responseText = '';
+            }
+        }
+    });
+
     // get student's input for given assignment
     $.mockjax({
         url: /\/assignments\/([\d]+)\/input\/([\d]+)/,

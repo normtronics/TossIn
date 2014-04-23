@@ -16,6 +16,10 @@ define([
 		EXERCISE_CREATE.saveExercise();
 	});
 
+	$ex.find('.clear-button').click(function () {
+		EXERCISE_CREATE.clearExercise();
+	});
+	
 	var api = {
 		/** Shows the exercise create interface **/
 		show : function () {
@@ -24,7 +28,7 @@ define([
 			
 			$('#exercise-create').append($ex);
 			$('#ex-saved-pane').show();
-			$('#word-banke,#status-lights,#chat-box').hide();
+			$('#word-bank,#status-lights,#chat-box').hide();
 			$('#student-list').css('visibility','hidden');
 			//Populate saved exercises list
 			EXERCISE_CREATE.loadSavedExercises();
@@ -109,6 +113,10 @@ define([
 		
 		/** Removes an exercise from the list **/
 		removeExercise : function (button) {
+			if(!confirm("Are you sure you want to delete this exercise?")) {
+				return ;
+			}
+			
 			var $div = $(button).closest('div'),
 				key = $div.find('.saved-exercise-name').html();
 			delete EXERCISE_CREATE.savedExercises[key];
@@ -159,6 +167,17 @@ define([
 				EXERCISE_CREATE.addWord();
 				$('.word-list input:last').val(loaded.words[x]);
 			}
+		},
+		
+		/** Clears the edit pane to make way for new variables **/
+		clearExercise : function () {
+			$('#ex-name').val('');
+			$('#ex-description').val('');
+			$('#rndm-order')[0].checked = false;
+			
+			//Clear current list
+			$('.word-list li:not(:last)').detach();
+			$('.word-list li:last input').val('');
 		},
 		
 		/** Initial Data **/
