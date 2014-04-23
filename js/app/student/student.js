@@ -1,30 +1,35 @@
 define([
     'jquery',
     'text!app/instructor/instructor.htm',
+    'text!app/student/right-pane-prompt.htm',
     'stringutil',
-    'studentlist',
     'texteditor',
 	'wordbank',
     'mocks'
-], function ($, markup, stringutil) {
-    var $element = $(markup);
+], function ($, markup, rightPaneMarkup, stringutil) {
+    var $element = $(markup),
+        $rightPane = $(rightPaneMarkup);
 
     var $studentList = $element.find('#student-list'),
         $textArea = $element.find('#text-area'),
         $wordBank = $element.find('#word-bank'),
         $statusLights = $element.find('#status-lights'),
-        $chatBox = $element.find('#chat-box');
+        $chatBox = $element.find('#chat-box'),
+        $assignmentBody = $rightPane.find('#assignment-body');
 
     var assignmentId;
 
     var api = {
-        show : function (assgnmntId) {
+        show : function () {
             $textArea.texteditor().texteditor('disable');
 			$wordBank.wordbank();
-            assignmentId = assgnmntId;
 
             var $content = $('#content-inner');
             $content.empty().append($element);
+
+            $.get('/assignments/active').done(function (response) {
+
+            });
         }
     };
 

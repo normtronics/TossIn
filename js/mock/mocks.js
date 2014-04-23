@@ -1,13 +1,28 @@
 define([
+    'moment',
     'text!mock/users.json',
     'text!mock/inputs.json',
-    'text!mock/words.json',
+    'text!mock/assignments.json',
     'mockjax'
-], function (usersJSON, inputsJSON, wordsJSON) {
+], function (moment, usersJSON, inputsJSON, assignmentsJSON) {
     
     var users = JSON.parse(usersJSON),
         inputs = JSON.parse(inputsJSON),
-        words = JSON.parse(wordsJSON);
+        assignments = JSON.parse(assignmentsJSON);
+
+    var activeAssignment;
+
+    var findById = function (collection, id) {
+            return _.find(collection, function (item) {
+                return item.id == id;
+            });
+        },
+        getAssignment = function (id) {
+            return findById(assignments, id);
+        },
+        getUser = function (id) {
+            return findById(users, id);
+        }
     
     // TODO enforce uniqueness
     var nextUserId = 100;
@@ -21,11 +36,15 @@ define([
     });
 	
 	$.mockjax({
-        // TODO make this per-assignment
-        url: /\/users\/words/,
+        url: /\/assignments\/([\d]+)\/words/,
+        urlParams: ['assignmentId'],
         type: 'GET',
         responseTime: 0,
-        responseText: words
+        response: function (settings) {
+            var assignment = getAssignment(settings.urlParams.assignmentId);
+            this.responseText = assignment ?
+                JSON.stringify(assignment.words) : '';
+        }
     });
 
     $.mockjax({
@@ -52,7 +71,7 @@ define([
         type: 'POST',
         responseTime: 0,
         response: function(settings){
-            var user = _.find(users, function (user) {
+            var user = _.find(users, function (user){
                 return user.username == settings.data.username;
             });
 
@@ -62,7 +81,40 @@ define([
                 this.responseText = JSON.stringify(settings.data);
             }else{
                 this.responseText = '';
+                this.status = 500; // user already exists
             }
+        }
+    });
+
+    // start an assignment
+    $.mockjax({
+        url: /\/assignments\/([\d]+)\/start/,
+        urlParams: ['assignmentId'],
+        type: 'POST',
+        responseTime: 0,
+        response: function (settings) {
+            var assignment = getAssignment(settings.urlParams.assignmentId);
+            if (_.isUndefined(assignment)) {
+                this.responseText = '';
+                this.status = 404; // tried to start a nonexistent assignment
+            } else {
+                activeAssignment = $.extend(true, {}, assignment, {
+                    timeStarted: moment().format()
+                });
+                this.responseText = JSON.stringify(activeAssignment);
+            }
+        }
+    });
+
+
+    // get the active assignment
+    $.mockjax({
+        url: /\/assignments\/active/,
+        type: 'GET',
+        responseTime: 0,
+        response: function () {
+            this.responseText = activeAssignment ?
+                JSON.stringify(activeAssignment) : '';
         }
     });
 
@@ -73,10 +125,16 @@ define([
         type: 'GET',
         responseTime: 0,
         response: function (settings) {
-            var assignmentId = settings.urlParams.assignmentId,
-                studentId = settings.urlParams.studentId;
+            var assignment = getAssignment(settings.urlParams.assignmentId),
+                student = getUser(settings.urlParams.studentId);
 
-            this.responseText = JSON.stringify(inputs[assignmentId][studentId]);
+            if (_.isUndefined(assignment) || _.isUndefined(student)) {
+                this.status = 404;
+                this.responseText = '';
+            } else {
+                this.responseText =
+                    JSON.stringify(inputs[assignment.id][student.id]);
+            }
         }
     });
 });

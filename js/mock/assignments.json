@@ -1,0 +1,26 @@
+[
+    {
+        "id" : "1",
+        "name" : "Weekly Journal",
+        "prompt" : "What did you do this week? Did you face any new challenges? Meet any new people?",
+        "timeLimit" : 600,
+        "words" : [
+            "A person's name",
+            "A place",
+            "Excited",
+            "Nervous"
+        ]
+    },
+    {
+        "id" : "2",
+        "name" : "Movie Reflection",
+        "prompt" : "What are your thoughts on the movie? What did you like or dislike?",
+        "timeLimit" : 300,
+        "words" : [
+            "Plot",
+            "Surprised",
+            "Unimpressed",
+            "Recommend"
+        ]
+    }
+]

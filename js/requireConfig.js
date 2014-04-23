@@ -5,6 +5,7 @@ require.config({
         jquery: 'vendor/jquery-1.10.2.min',
         jqueryui: 'vendor/jquery-ui-1.10.4.custom',
         underscore: 'vendor/underscore',
+        moment: 'vendor/moment.min',
         hotkeys: 'vendor/jquery.hotkeys',
         
         // jquery plugins

@@ -7,15 +7,17 @@ define([
     'mocks'
 ], function ($, _, markup, stringutil) {
 	var wordMarkup =
-        '<div data-id="{0}" class="word-bank-item">{1}</div>';
+        '<div class="word-bank-item">{0}</div>';
+
+    var DELAY_BETWEEN_WORDS = 10000, // in milliseconds
+        NUM_INITIAL_WORDS = 2;
 
     $.widget('tossin.wordbank', {
         options: {},
         addWord : function (word) {
 			console.log("Word added",word);
             var that = this,
-                formatted = stringutil.format(
-                    wordMarkup, word.id, word.name);
+                formatted = stringutil.format(wordMarkup, word);
                 $wordBankItem = $(formatted);
 
             $wordBankItem.on('click', function () {
@@ -34,6 +36,14 @@ define([
                 this.options.controller.wordSelected(wordId);
             }
         },
+        addInitialWords : function (words) {
+            var numInitialWords = NUM_INITIAL_WORDS < words.length ?
+                NUM_INITIAL_WORDS : words.length;
+            for (var i = 0; i < numInitialWords; i++) this.addWord(words[i]);
+
+            words.splice(0, numInitialWords);
+            this.runWordPopulate(words);
+        },
 		runWordPopulate : function (words) {
 			var that = this;
 			
@@ -42,16 +52,28 @@ define([
 					that.addWord(words[0]);
 					words.splice(0,1);
 					that.runWordPopulate(words);
-				}, 1000);	
+				}, DELAY_BETWEEN_WORDS);	
 			}
 		},
+        _waitForActiveAssignment : function () {
+            var that = this;
+            $.get('/assignments/active').done(function (response) {
+                if (response) {
+                    response = _.isString(response) ?
+                        JSON.parse(response) : response;
+                    that.options.activeAssignmentId = response.id;
+
+                    that.addInitialWords(response.words);
+                    that.runWordPopulate(response.words);
+                } else setTimeout(function () {
+                    that._waitForActiveAssignment.call(that);
+                }, 1000);
+            });
+        },
         _create : function () {
 			var that = this;
-            this.element.append($(markup)).addClass('wordbank');
-
-            $.getJSON('/users/words').done(function (response) {
-                that.runWordPopulate(response);
-            });
+            this.element.append($(markup)).addClass('wordbank'); 
+            this._waitForActiveAssignment();
         },
         _destroy : function () {
             this.element.removeClass('wordbank');
