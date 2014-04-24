@@ -27,6 +27,7 @@ define([
                 response = _.isString(response) ?
                     JSON.parse(response) : response;
                 assignment = response;
+                assignmentActivated();
             } else setTimeout(function () {
                 waitForActiveAssignment();
             }, PING_INTERVAL);
@@ -35,11 +36,15 @@ define([
 
     var assignmentActivated = function () {
         $wordBank.wordbank('addWords', assignment.words);
+        $textArea.texteditor('toggle', true);
+        $assignmentBody.text(assignment.prompt);
     };
+
+    $studentList.append($rightPane);
 
     var api = {
         show : function () {
-            $textArea.texteditor().texteditor('disable');
+            $textArea.texteditor().texteditor('toggle', false);
 			$wordBank.wordbank({ controller : api });
 
             var $content = $('#content-inner');

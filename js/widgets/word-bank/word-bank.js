@@ -54,24 +54,9 @@ define([
 				}, DELAY_BETWEEN_WORDS);	
 			}
 		},
-        _waitForActiveAssignment : function () {
-            var that = this;
-            $.get('/assignments/active').done(function (response) {
-                if (response) {
-                    response = _.isString(response) ?
-                        JSON.parse(response) : response;
-                    that.options.activeAssignmentId = response.id;
-
-                    that.addWords(response.words);
-                } else setTimeout(function () {
-                    that._waitForActiveAssignment.call(that);
-                }, 1000);
-            });
-        },
         _create : function () {
 			var that = this;
             this.element.append($(markup)).addClass('wordbank'); 
-            this._waitForActiveAssignment();
         },
         _destroy : function () {
             this.element.removeClass('wordbank');
