@@ -7,6 +7,8 @@ define([
 	'wordbank',
     'mocks'
 ], function ($, markup, rightPaneMarkup, stringutil) {
+    var PING_INTERVAL = 2000;
+
     var $element = $(markup),
         $rightPane = $(rightPaneMarkup);
 
@@ -17,20 +19,37 @@ define([
         $chatBox = $element.find('#chat-box'),
         $assignmentBody = $rightPane.find('#assignment-body');
 
-    var assignmentId;
+    var assignment;
+
+    var waitForActiveAssignment = function () {
+        $.get('/assignments/active').done(function (response) {
+            if (response) {
+                response = _.isString(response) ?
+                    JSON.parse(response) : response;
+                assignment = response;
+            } else setTimeout(function () {
+                waitForActiveAssignment();
+            }, PING_INTERVAL);
+        });
+    };
+
+    var assignmentActivated = function () {
+        $wordBank.wordbank('addWords', assignment.words);
+    };
 
     var api = {
         show : function () {
             $textArea.texteditor().texteditor('disable');
-			$wordBank.wordbank();
+			$wordBank.wordbank({ controller : api });
 
             var $content = $('#content-inner');
             $content.empty().append($element);
 
-            $.get('/assignments/active').done(function (response) {
-
-            });
-        }
+            waitForActiveAssignment();
+        },
+        wordSelected : function (word) {
+            console.log("Word selected:", word);
+        },
     };
 
     return api;

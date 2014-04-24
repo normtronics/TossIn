@@ -9,13 +9,12 @@ define([
 	var wordMarkup =
         '<div class="word-bank-item">{0}</div>';
 
-    var DELAY_BETWEEN_WORDS = 10000, // in milliseconds
+    var DELAY_BETWEEN_WORDS = 5000, // in milliseconds
         NUM_INITIAL_WORDS = 2;
 
     $.widget('tossin.wordbank', {
         options: {},
         addWord : function (word) {
-			console.log("Word added",word);
             var that = this,
                 formatted = stringutil.format(wordMarkup, word);
                 $wordBankItem = $(formatted);
@@ -30,13 +29,13 @@ define([
         },
         selectWord : function ($wordBankItem) {
             if (!$wordBankItem.hasClass('selected')) {
-                var wordId = $wordBankItem.attr('data-id');
                 this.element.find('.selected').removeClass('selected');
                 $wordBankItem.addClass('selected');
-                this.options.controller.wordSelected(wordId);
+                this.options.controller.wordSelected($wordBankItem.text());
             }
         },
-        addInitialWords : function (words) {
+        addWords : function (words) {
+            // add initial chunk
             var numInitialWords = NUM_INITIAL_WORDS < words.length ?
                 NUM_INITIAL_WORDS : words.length;
             for (var i = 0; i < numInitialWords; i++) this.addWord(words[i]);
@@ -63,8 +62,7 @@ define([
                         JSON.parse(response) : response;
                     that.options.activeAssignmentId = response.id;
 
-                    that.addInitialWords(response.words);
-                    that.runWordPopulate(response.words);
+                    that.addWords(response.words);
                 } else setTimeout(function () {
                     that._waitForActiveAssignment.call(that);
                 }, 1000);
