@@ -3,7 +3,7 @@ define([
     'text!app/registration/registration.htm',
     'app/exercise-create/exercisecreate',
     'hash',
-    'app/student/student'
+    'app/student/student',
 ], function ($, markup, exerciseView, hash, studentView) {
     var $element = $(markup);
 
@@ -17,6 +17,12 @@ define([
 
 
     var $regBtn = $element.find('#register-submit');
+    var $cancelBtn = $element.find('#cancel-submit');
+
+    $cancelBtn.on('click', function (event) {
+        //Add logic
+        console.log('Fell');
+    });
 
 
 
