@@ -30,14 +30,14 @@ define([
 
     // get all students
     $.mockjax({
-        url: /\/users\/students/,
+        url: /^\/users\/students$/,
         type: 'GET',
         responseTime: 0,
         responseText: users.students
     });
 	
 	$.mockjax({
-        url: /\/assignments\/([\d]+)\/words/,
+        url: /^\/assignments\/([\d]+)\/words$/,
         urlParams: ['assignmentId'],
         type: 'GET',
         responseTime: 0,
@@ -49,7 +49,7 @@ define([
     });
 
     $.mockjax({
-        url: /\/users\/validation\?username=([a-zA-Z0-9]+)&pass=([a-fA-F0-9]{40})/,
+        url: /^\/users\/validation\?username=([a-zA-Z0-9]+)&pass=([a-fA-F0-9]{40})$/,
         urlParams: ['username', 'passwordHash'],
         type: 'GET',
         responseTime: 0,
@@ -68,7 +68,7 @@ define([
 
 
     $.mockjax({
-        url: /\/users\/create/,
+        url: /^\/users\/create$/,
         type: 'POST',
         responseTime: 0,
         response: function(settings){
@@ -89,7 +89,7 @@ define([
 
     // create an assignment
     $.mockjax({
-        url: /\/assignments\//,
+        url: /^\/assignments\/$/,
         type: 'POST',
         responseTime: 0,
         response: function (settings) {
@@ -102,15 +102,15 @@ define([
 
     // get all assignments
     $.mockjax({
-        url: /\/assignments\//,
+        url: /^\/assignments$/,
         type: 'GET',
         responseTime: 0,
-        response: assignments
+        responseText: JSON.stringify(assignments)
     });
 
     // get an assignment
     $.mockjax({
-        url: /\/assignments\/([\d]+)\//,
+        url: /^\/assignments\/([\d]+)$/,
         urlParams: ['assignmentId'],
         type: 'GET',
         responseTime: 0,
@@ -127,7 +127,7 @@ define([
 
     // delete an assignment
     $.mockjax({
-        url: /\/assignments\/([\d]+)\//,
+        url: /^\/assignments\/([\d]+)$/,
         urlParams: ['assignmentId'],
         type: 'DELETE',
         responseTime: 0,
@@ -141,7 +141,7 @@ define([
 
     // start an assignment
     $.mockjax({
-        url: /\/assignments\/([\d]+)\/start/,
+        url: /^\/assignments\/([\d]+)\/start$/,
         urlParams: ['assignmentId'],
         type: 'POST',
         responseTime: 0,
@@ -162,7 +162,7 @@ define([
 
     // get the active assignment
     $.mockjax({
-        url: /\/assignments\/active/,
+        url: /^\/assignments\/active$/,
         type: 'GET',
         responseTime: 0,
         response: function () {
@@ -173,7 +173,7 @@ define([
 
     // get student's input for given assignment
     $.mockjax({
-        url: /\/assignments\/([\d]+)\/input\/([\d]+)/,
+        url: /^\/assignments\/([\d]+)\/input\/([\d]+)$/,
         urlParams: ['assignmentId', 'studentId'],
         type: 'GET',
         responseTime: 0,
