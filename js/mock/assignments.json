@@ -4,6 +4,7 @@
         "name" : "Weekly Journal",
         "description" : "What did you do this week? Did you face any new challenges? Meet any new people?",
         "timeLimit" : 600,
+        "random" : false,
         "wordInterval" : 15,
         "words" : [
             "A person's name",
@@ -17,6 +18,7 @@
         "name" : "Movie Reflection",
         "description" : "What are your thoughts on the movie? What did you like or dislike?",
         "timeLimit" : 300,
+        "random" : true,
         "wordInterval" : 15,
         "words" : [
             "Plot",

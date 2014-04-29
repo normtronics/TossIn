@@ -168,6 +168,7 @@ define([
                 $('#ex-name').val(response.name);
                 $('#ex-description').val(response.description);
                 $('#rndm-order')[0].checked = response.random;
+                $('#ex-interval').val(response.wordInterval);
                 
                 //Clear current list
                 $('.word-list li:not(:last)').detach();
@@ -186,6 +187,7 @@ define([
 			$('#ex-name').val('');
 			$('#ex-description').val('');
 			$('#rndm-order')[0].checked = false;
+            $('#ex-interval').val('');
 			
 			//Clear current list
 			$('.word-list li:not(:last)').detach();
