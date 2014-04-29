@@ -5,6 +5,7 @@ define([
     'stringutil',
     'texteditor',
 	'wordbank',
+    'timer',
     'mocks'
 ], function ($, markup, rightPaneMarkup, stringutil) {
     var PING_INTERVAL = 2000;
@@ -13,6 +14,7 @@ define([
         $rightPane = $(rightPaneMarkup);
 
     var $studentList = $element.find('#student-list'),
+        $topMiddle = $element.find('#top-middle-pane'),
         $textArea = $element.find('#text-area'),
         $wordBank = $element.find('#word-bank'),
         $statusLights = $element.find('#status-lights'),
@@ -38,6 +40,7 @@ define([
         $wordBank.wordbank('addWords', assignment.words);
         $textArea.texteditor('toggle', true);
         $assignmentBody.text(assignment.prompt);
+        $topMiddle.timer({ totalSec : assignment.timeLimit });
     };
 
     $studentList.append($rightPane);

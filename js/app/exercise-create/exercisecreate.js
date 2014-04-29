@@ -30,6 +30,7 @@ define([
 			$('#ex-saved-pane').show();
 			$('#word-bank,#status-lights,#chat-box').hide();
 			$('#student-list').css('visibility','hidden');
+            $('#middle-pane').remove();
 			//Populate saved exercises list
 			EXERCISE_CREATE.loadSavedExercises();
 		},

@@ -21,6 +21,7 @@ require.config({
         texteditor: 'widgets/text-editor/text-editor',
 		wordbank: 'widgets/word-bank/word-bank',
 		exercisecreate: 'widgets/exercise-create/exercise_create',
+        timer: 'widgets/timer/timer',
 
         // utils
         stringutil: 'util/stringutil',

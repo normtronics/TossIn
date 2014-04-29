@@ -5,11 +5,13 @@ define([
 	'wordbank',
 	'studentlist',
     'texteditor',
+    'timer',
 	'mocks'
-], function ($, markup, stringutil, wordbank) {
+], function ($, markup, stringutil) {
     var $element = $(markup);
 
     var $studentList = $element.find('#student-list'),
+        $topMiddlePane = $element.find('#top-middle-pane'),
         $textArea = $element.find('#text-area'),
         $wordBank = $element.find('#word-bank'),
         $statusLights = $element.find('#status-lights'),
@@ -20,9 +22,9 @@ define([
     var api = {
         show : function (assgnmntId) {
             $studentList.studentlist({controller : api});
-            $textArea.texteditor();
 			$wordBank.wordbank({controller : api});
-			//$wordBank.wordbank()
+            $topMiddlePane.timer();
+            $textArea.texteditor();
             assignmentId = assgnmntId;
 
             var $content = $('#content-inner');

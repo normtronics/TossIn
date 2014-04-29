@@ -168,16 +168,25 @@ body {
     height: 85%;
     width: 225px;
     margin: 45px;
-    background-color: rgba(0, 154, 205, 0.65);
-    border: 2px solid #000;
+    background-color: rgba(0, 170, 225, 0.65);
+    box-shadow: 5px 5px 5px #555555;
+}
+
+#middle-pane {
+    float: left;
+    height: 100%;
+    max-width: 800px;
+    width: 55%;
+}
+
+#top-middle-pane {
+    height: 80px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 #text-area {
-    float: left;
-    margin-top: 90px;
     height: 70%;
-    max-width: 800px;
-    width: 55%;
 }
 
 #right-pane {
@@ -189,8 +198,8 @@ body {
 }
 
 #word-bank, #status-lights, #chat-box {
-    border: 2px solid #000;
-    background-color: rgba(0, 154, 205, 0.65);
+    box-shadow: 5px 5px 5px #555555;
+    background-color: rgba(0, 170, 225, 0.65);
 }
 
 #word-bank {
@@ -228,14 +237,12 @@ body {
     margin: 1px;
     height: 30px;
     text-align: center;
-    border: 1px solid #000;
     font-size: 20px;
 }
 
 #student-list > .student-list-item.selected {
     color: #fff;
     background-color: #00688B !important;
-    border: 0px;
 }
 
 /* Word Bank */
@@ -257,14 +264,12 @@ body {
     margin: 1px;
     height: 30px;
     text-align: center;
-    border: 1px solid #000;
     font-size: 20px;
 }
 
 #word-bank > .word-bank-item.selected {
     color: #fff;
     background-color: #00688B !important;
-    border: 0px;
 }
 
 /* Text editor */
