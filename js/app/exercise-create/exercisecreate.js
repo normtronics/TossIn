@@ -79,14 +79,17 @@ define([
 
 		/** This loads the current list of saved exercises into the data structure **/
 		loadSavedExercises : function () {
-            $.get('/assignments/').done(function (response) {
+            var that = this;
+            $.get('/assignments').done(function (response) {
+                response = _.isString(response) ?
+                        JSON.parse(response) : response;
                 _.each(response, function (exercise) {
                     var div = savedExerciseMarkup;
                     var formatted = stringutil.format(div,
                         exercise.name, exercise.id);
                     $('.saved-list').append(formatted);
                 });
-			    this.bindSavedListFunctions( $('.saved-list') );
+			    that.bindSavedListFunctions( $('.saved-list') );
             });
 		},
 		
@@ -95,7 +98,7 @@ define([
 			var $div = $(button).closest('div'),
                 exerciseId = $div.attr('data-id');
 		    
-            $.post('/assignments/' + exerciseId + '/start/');
+            $.post('/assignments/' + exerciseId + '/start');
 			instructorView.show(exercise);
 		},
 		
@@ -121,7 +124,7 @@ define([
 			var $div = $(button).closest('div'),
                 exerciseId = $div.attr('data-id');
 
-            $.delete('/assignments/' + exerciseId + '/');
+            $.delete('/assignments/' + exerciseId);
 			$div.detach();
 		},
 			
@@ -143,7 +146,7 @@ define([
 			
 			data.words = words;
 
-            $.post('/assignments/', data);
+            $.post('/assignments', data);
 	
             //Don't append a new listing if the exercise already exists
 			if(newExercise) {
@@ -158,7 +161,9 @@ define([
 			//Pull key out of div to locate data
 			var exerciseId = $(button).closest('div').attr('data-id');
 		
-            $.get('/assignments/' + exerciseId + '/').done(function (response) {
+            $.get('/assignments/' + exerciseId).done(function (response) {
+                response = _.isString(response) ?
+                        JSON.parse(response) : response;
                 /** Populate editable fields with loaded exercise data **/
                 $('#ex-name').val(response.name);
                 $('#ex-description').val(response.description);

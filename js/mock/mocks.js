@@ -89,7 +89,7 @@ define([
 
     // create an assignment
     $.mockjax({
-        url: /^\/assignments\/$/,
+        url: /^\/assignments$/,
         type: 'POST',
         responseTime: 0,
         response: function (settings) {
