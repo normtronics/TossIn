@@ -222,7 +222,7 @@ body {
 
 #tossin-timer > #tossin-timer-label {
     float: right;
-    margin-top: 30px;
+    margin-top: 33px;
     color: #F0FFFF;
     font-size: 21px;
     text-shadow: 0 2px 2px rgba(0,0,0,0.5);
@@ -263,9 +263,17 @@ body {
     background-color: #00688B !important;
 }
 
+/* Student assignment prompt view */
+
+#student-assignment-prompt {
+    padding: 5px;
+    font-size: 20px;
+}
+
 /* Word Bank */
 
 #word-bank {
+    padding: 5px;
     overflow: auto;
 }
 
