@@ -25,7 +25,8 @@ define([
         }
     
     // TODO enforce uniqueness
-    var nextUserId = 100;
+    var nextId;
+    var getNextId = function () { return nextId++; }
 
     // get all students
     $.mockjax({
@@ -76,13 +77,65 @@ define([
             });
 
             if (_.isUndefined(user)) {
-                settings.data.id = "" + nextUserId++;
+                settings.data.id = "" + getNextId();
                 users.push(settings.data);
                 this.responseText = JSON.stringify(settings.data);
             }else{
                 this.responseText = '';
                 this.status = 500; // user already exists
             }
+        }
+    });
+
+    // create an assignment
+    $.mockjax({
+        url: /\/assignments\//,
+        type: 'POST',
+        responseTime: 0,
+        response: function (settings) {
+            var newAssignment = $.extend({}, settings.data, {
+                id : getNextId()
+            });
+            assignments.push(newAssignment);
+        }
+    });
+
+    // get all assignments
+    $.mockjax({
+        url: /\/assignments\//,
+        type: 'GET',
+        responseTime: 0,
+        response: assignments
+    });
+
+    // get an assignment
+    $.mockjax({
+        url: /\/assignments\/([\d]+)\//,
+        urlParams: ['assignmentId'],
+        type: 'GET',
+        responseTime: 0,
+        response: function (settings) {
+            var assignment = getAssignment(settings.urlParams.assignmentId);
+            if (_.isUndefined(assignment)) {
+                this.responseText = '';
+                this.status = 404;
+            } else {
+                this.responseText = JSON.stringify(assignment);
+            }
+        }
+    });
+
+    // delete an assignment
+    $.mockjax({
+        url: /\/assignments\/([\d]+)\//,
+        urlParams: ['assignmentId'],
+        type: 'DELETE',
+        responseTime: 0,
+        response: function (settings) {
+            assignments = _.filter(assignments, function (assignment) {
+                return assignment.id != settings.urlParams.assignmentId;
+            });
+            this.responseText = '';
         }
     });
 

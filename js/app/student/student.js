@@ -39,7 +39,7 @@ define([
     var assignmentActivated = function () {
         $wordBank.wordbank('addWords', assignment.words);
         $textArea.texteditor('toggle', true);
-        $assignmentBody.text(assignment.prompt);
+        $assignmentBody.text(assignment.description);
         $topMiddle.timer({ totalSec : assignment.timeLimit }).timer('start');
     };
 

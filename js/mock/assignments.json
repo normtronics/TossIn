@@ -2,8 +2,9 @@
     {
         "id" : "1",
         "name" : "Weekly Journal",
-        "prompt" : "What did you do this week? Did you face any new challenges? Meet any new people?",
+        "description" : "What did you do this week? Did you face any new challenges? Meet any new people?",
         "timeLimit" : 600,
+        "wordInterval" : 15,
         "words" : [
             "A person's name",
             "A place",
@@ -14,8 +15,9 @@
     {
         "id" : "2",
         "name" : "Movie Reflection",
-        "prompt" : "What are your thoughts on the movie? What did you like or dislike?",
+        "description" : "What are your thoughts on the movie? What did you like or dislike?",
         "timeLimit" : 300,
+        "wordInterval" : 15,
         "words" : [
             "Plot",
             "Surprised",

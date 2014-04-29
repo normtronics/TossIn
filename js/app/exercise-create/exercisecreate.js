@@ -79,23 +79,23 @@ define([
 
 		/** This loads the current list of saved exercises into the data structure **/
 		loadSavedExercises : function () {
-			var se = EXERCISE_CREATE.savedExercises;
-			
-			for(var key in se) {
-				var div = savedExerciseMarkup;
-				var formatted = stringutil.format(div, key);
-				$('.saved-list').append(formatted);
-			}
-			
-			this.bindSavedListFunctions( $('.saved-list') );
+            $.get('/assignments/').done(function (response) {
+                _.each(response, function (exercise) {
+                    var div = savedExerciseMarkup;
+                    var formatted = stringutil.format(div,
+                        exercise.name, exercise.id);
+                    $('.saved-list').append(formatted);
+                });
+			    this.bindSavedListFunctions( $('.saved-list') );
+            });
 		},
 		
 		/** Launches an exercise **/
 		launchExercise : function (button) {
 			var $div = $(button).closest('div'),
-				key = $div.find('.saved-exercise-name').html(),
-				exercise = EXERCISE_CREATE.savedExercises[key];
-				
+                exerciseId = $div.attr('data-id');
+		    
+            $.post('/assignments/' + exerciseId + '/start/');
 			instructorView.show(exercise);
 		},
 		
@@ -119,8 +119,9 @@ define([
 			}
 			
 			var $div = $(button).closest('div'),
-				key = $div.find('.saved-exercise-name').html();
-			delete EXERCISE_CREATE.savedExercises[key];
+                exerciseId = $div.attr('data-id');
+
+            $.delete('/assignments/' + exerciseId + '/');
 			$div.detach();
 		},
 			
@@ -129,6 +130,8 @@ define([
 			var data = {
 				name : $('#ex-name').val(),
 				description : $('#ex-description').val(),
+                // timeLimit : 
+                wordInterval : $('ex-interval').val()
 			};
 			
 			var newExercise = (EXERCISE_CREATE.savedExercises[data.name] == undefined);
@@ -139,8 +142,10 @@ define([
 			});
 			
 			data.words = words;
-			EXERCISE_CREATE.savedExercises[data.name] = data;
-			//Don't append a new listing if the exercise already exists
+
+            $.post('/assignments/', data);
+	
+            //Don't append a new listing if the exercise already exists
 			if(newExercise) {
 				var $formatted = $( stringutil.format(savedExerciseMarkup, data.name) );
 				EXERCISE_CREATE.bindSavedListFunctions( $formatted );
@@ -151,23 +156,24 @@ define([
 		/** Loads a saved exercise and populates the edit fields **/
 		loadExercise : function (button) {
 			//Pull key out of div to locate data
-			var key = $(button).closest('div').find('.saved-exercise-name').html();
-			var loaded = EXERCISE_CREATE.savedExercises[key];
-			
-			/** Populate editable fields with loaded exercise data **/
-			$('#ex-name').val(loaded.name);
-			$('#ex-description').val(loaded.description);
-			$('#rndm-order')[0].checked = loaded.random;
-			
-			//Clear current list
-			$('.word-list li:not(:last)').detach();
-					
-			//Populate word list
-			$('.word-list input:last').val(loaded.words[0]);
-			for(var x = 1; x < loaded.words.length; x++) {
-				EXERCISE_CREATE.addWord();
-				$('.word-list input:last').val(loaded.words[x]);
-			}
+			var exerciseId = $(button).closest('div').attr('data-id');
+		
+            $.get('/assignments/' + exerciseId + '/').done(function (response) {
+                /** Populate editable fields with loaded exercise data **/
+                $('#ex-name').val(response.name);
+                $('#ex-description').val(response.description);
+                $('#rndm-order')[0].checked = response.random;
+                
+                //Clear current list
+                $('.word-list li:not(:last)').detach();
+                        
+                //Populate word list
+                $('.word-list input:last').val(response.words[0]);
+                for(var x = 1; x < response.words.length; x++) {
+                    EXERCISE_CREATE.addWord();
+                    $('.word-list input:last').val(response.words[x]);
+                }
+            });
 		},
 		
 		/** Clears the edit pane to make way for new variables **/
@@ -210,7 +216,7 @@ define([
 		'<button type="button" class="btn btn-success add-word"><i class="glyphicon glyphicon-plus"/></button>';
 		
 	var savedExerciseMarkup =
-		'<div class="row-fluid">'
+		'<div data-id="{1}" }class="row-fluid">'
 			+'<span class="saved-exercise-name">{0}</span>'
 			+'<button type="button" class="btn btn-success edit-saved">'
 				+'<i class="glyphicon glyphicon-pencil" />'
