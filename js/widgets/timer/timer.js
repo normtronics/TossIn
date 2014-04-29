@@ -34,8 +34,9 @@ define([
             } else clearTimeout(tickInterval);
         },
         start : function (totalSeconds) {
+            var that = this;
             if (!_.isUndefined(totalSeconds))
-                this.options.totalSec = totalSeconds
+                this.options.totalSec = totalSeconds;
 
             that._tick();
             tickInterval = setInterval(function () {

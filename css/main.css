@@ -218,6 +218,24 @@ body {
     height: 50%;
 }
 
+/* Timer widget */
+
+#tossin-timer > #tossin-timer-label {
+    float: right;
+    margin-top: 30px;
+    color: #F0FFFF;
+    font-size: 21px;
+    text-shadow: 0 2px 2px rgba(0,0,0,0.5);
+}
+
+#tossin-timer > #tossin-timer-countdown {
+    margin-left: 25px;
+    float: right;
+    font-size: 60px;
+    color: #F0FFFF;
+    text-shadow: 0 2px 2px rgba(0,0,0,0.5);
+}
+
 /* Student list widget */
 
 #student-list {

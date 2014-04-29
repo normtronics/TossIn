@@ -40,7 +40,7 @@ define([
         $wordBank.wordbank('addWords', assignment.words);
         $textArea.texteditor('toggle', true);
         $assignmentBody.text(assignment.prompt);
-        $topMiddle.timer({ totalSec : assignment.timeLimit });
+        $topMiddle.timer({ totalSec : assignment.timeLimit }).timer('start');
     };
 
     $studentList.append($rightPane);
