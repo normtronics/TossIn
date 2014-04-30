@@ -5,7 +5,8 @@ define([
     'text!app/login/login.htm',
 	'app/exercise-create/exercisecreate',
     'app/registration/registration',
-    'app/student/student'
+    'app/student/student',
+    'jqueryui'
 ], function ($, hash, stringutil, markup, exerciseCreateView,
         registrationView, studentView) {
     var $element = $(markup);

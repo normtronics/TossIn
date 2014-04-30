@@ -12,7 +12,6 @@ require.config({
         mockjax: 'plugins/mockjax',
         bootstrap: 'plugins/bootstrap',
         editor: 'plugins/bootstrap-wysiwyg',
-        chatbox: 'plugins/chatbox',
 
         // requirejs plugins
         text: 'plugins/text',
