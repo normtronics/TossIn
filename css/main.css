@@ -183,6 +183,17 @@ body {
     height: 80px;
     margin-top: 10px;
     margin-bottom: 10px;
+    text-align: center;
+}
+
+#top-middle-pane.waiting {
+    padding-top: 20px;
+}
+
+#top-middle-pane > .label {
+    color: #F0FFFF;
+    font-size: 30px;
+    text-shadow: 0 2px 2px rgba(0,0,0,0.5);
 }
 
 #text-area {
@@ -274,7 +285,7 @@ body {
 
 #word-bank {
     padding: 5px;
-    overflow: auto;
+    overflow: scroll;
 }
 
 #word-bank > #word-bank-header {

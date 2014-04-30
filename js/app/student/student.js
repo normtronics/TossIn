@@ -37,6 +37,7 @@ define([
     };
 
     var assignmentActivated = function () {
+        $topMiddle.removeClass('waiting').find('.label').remove();
         $wordBank.wordbank('addWords', assignment.words);
         $textArea.texteditor('toggle', true);
         $assignmentBody.text(assignment.description);
@@ -49,6 +50,9 @@ define([
         show : function () {
             $textArea.texteditor().texteditor('toggle', false);
 			$wordBank.wordbank({ controller : api });
+            $topMiddle.addClass('waiting');
+            $topMiddle.append(
+                    '<div class="label">Waiting for assignment...</div>');
 
             var $content = $('#content-inner');
             $content.empty().append($element);
