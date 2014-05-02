@@ -60,7 +60,10 @@ define([
         $textArea.texteditor('toggle', true);
         $chatBox.chatbox('setRecipientId', assignment.instructorId);
         $assignmentBody.text(assignment.description);
-        $topMiddle.timer({ totalSec : assignment.timeLimit }).timer('start');
+        $topMiddle.timer({
+            totalSec : assignment.timeLimit,
+            started: moment(assignment.started)
+        }).timer('start');
 
         pingForStatus();
     };

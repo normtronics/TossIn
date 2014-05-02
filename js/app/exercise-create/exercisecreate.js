@@ -229,8 +229,8 @@ define([
 		'<button type="button" class="btn btn-success add-word"><i class="glyphicon glyphicon-plus"/></button>';
 		
 	var savedExerciseMarkup =
-		'<div data-id="{1}" }class="row-fluid">'
-			+'<span class="saved-exercise-name">{0}</span>'
+		'<div data-id="{1}" class="saved-exercise-block">'
+			+'<div class="saved-exercise-name">{0}</div>'
 			+'<button type="button" class="btn btn-success edit-saved">'
 				+'<i class="glyphicon glyphicon-pencil" />'
 			+'</button>'

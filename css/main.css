@@ -203,6 +203,7 @@ body {
 #right-pane {
     float: right;
     position: relative;
+    width: 225px;
     height: 85%;
     margin: 45px;
 }
