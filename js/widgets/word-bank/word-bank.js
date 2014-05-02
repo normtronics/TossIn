@@ -13,7 +13,9 @@ define([
         NUM_INITIAL_WORDS = 2;
 
     $.widget('tossin.wordbank', {
-        options: {},
+        options: {
+            allAtOnce : false
+        },
         addWord : function (word) {
             var that = this,
                 formatted = stringutil.format(wordMarkup, word);
@@ -36,8 +38,12 @@ define([
         },
         addWords : function (words) {
             // add initial chunk
-            var numInitialWords = NUM_INITIAL_WORDS < words.length ?
-                NUM_INITIAL_WORDS : words.length;
+            if (this.options.allAtOnce)
+                var numInitialWords = words.length;
+            else
+                var numInitialWords = NUM_INITIAL_WORDS < words.length ?
+                    NUM_INITIAL_WORDS : words.length;
+
             for (var i = 0; i < numInitialWords; i++) this.addWord(words[i]);
 
             words.splice(0, numInitialWords);

@@ -9,6 +9,8 @@ define([
     var studentMarkup =
         '<div data-id="{0}" class="student-list-item">{1}</div>';
 
+    var loadedPromise;
+
     $.widget('tossin.studentlist', {
         options: {},
         addStudent : function (student) {
@@ -33,11 +35,21 @@ define([
                 this.options.controller.studentSelected(studentId);
             }
         },
+        selected : function () {
+            return this.element.find('.selected').attr('data-id');
+        },
+        loaded : function () {
+            return loadedPromise;
+        },
         _create : function () {
             var that = this;
             this.element.append($(markup)).addClass('studentlist');
 
-            $.getJSON('/users/students').done(function (response) {
+            loadedPromise = $.get('/users/students');
+
+            loadedPromise.done(function (response) {
+                response = _.isString(response) ?
+                    JSON.parse(response) : response;
                 _.each(response, function (student) {
                     that.addStudent(student);
                 });

@@ -1,6 +1,7 @@
 [
     {
         "id" : "1",
+        "instructorId" : "5",
         "name" : "Weekly Journal",
         "description" : "What did you do this week? Did you face any new challenges? Meet any new people?",
         "timeLimit" : 600,
@@ -15,6 +16,7 @@
     },
     {
         "id" : "2",
+        "instructorId" : "5",
         "name" : "Movie Reflection",
         "description" : "What are your thoughts on the movie? What did you like or dislike?",
         "timeLimit" : 300,

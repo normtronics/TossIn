@@ -31,9 +31,9 @@ define([
             if(response != '') {
                 var user = JSON.parse(response);
                 if(user.type === 'INSTRUCTOR') {
-                    exerciseCreateView.show();		
+                    exerciseCreateView.show(user);		
                 } else if (user.type === 'STUDENT') {
-                    studentView.show();
+                    studentView.show(user);
                 }	
             } else {
                 console.log('Invalid credentials');

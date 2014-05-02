@@ -1,6 +1,6 @@
 [
     {
-        "id" : 0,
+        "id" : "0",
         "type" : "STUDENT",
         "name" : "Brad Bensch",
         "username" : "bbensch",
@@ -8,35 +8,35 @@
         "passwordHash" : "5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8"
     },
     {
-        "id" : 1,
+        "id" : "1",
         "type" : "INSTRUCTOR",
         "name" : "Stephen Brewster",
         "username" : "sb",
         "passwordHash" : "da39a3ee5e6b4b0d3255bfef95601890afd80709"
     },
     {
-        "id" : 2,
+        "id" : "2",
         "type" : "STUDENT",
         "name" : "Matt Mokary",
         "username" : "mmokary",
         "passwordHash" : "5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8"
     },
     {
-        "id" : 3,
+        "id" : "3",
         "type" : "STUDENT",
         "name" : "Chris Norman",
         "username" : "cnorman",
         "passwordHash" : "5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8"
     },
     {
-        "id" : 4,
+        "id" : "4",
         "type" : "STUDENT",
         "name" : "Kurt Poquette",
         "username" : "kpoquette",
         "passwordHash" : "5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8"
     },
     {
-        "id" : 5,
+        "id" : "5",
         "type" : "INSTRUCTOR",
         "name" : "Bob Kuehl",
         "username" : "bkuehl",

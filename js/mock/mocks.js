@@ -1,14 +1,20 @@
 define([
     'moment',
+    'underscore',
     'text!mock/users.json',
     'text!mock/inputs.json',
     'text!mock/assignments.json',
     'mockjax'
-], function (moment, usersJSON, inputsJSON, assignmentsJSON) {
+], function (moment, _, usersJSON, inputsJSON, assignmentsJSON) {
     
     var users = JSON.parse(usersJSON),
         inputs = JSON.parse(inputsJSON),
-        assignments = JSON.parse(assignmentsJSON);
+        assignments = JSON.parse(assignmentsJSON),
+        activeStatus = {
+            monitoredStudent : "-1",
+            requestedHelp : [],
+            students : {}
+        };
 
     var activeAssignment;
 
@@ -22,7 +28,32 @@ define([
         },
         getUser = function (id) {
             return findById(users, id);
+        },
+        getInstructor = function (id) {
+            return _.find(users, function (user) {
+                return user.id == id && user.type == 'INSTRUCTOR';
+            });
+        };
+
+    var getStudentActiveInput = function (assignmentId, studentId) {
+        if (_.isUndefined(inputs[assignmentId]))
+            inputs[assignmentId] = {};
+        if (_.isUndefined(inputs[assignmentId][studentId]))
+            inputs[assignmentId][studentId] = { input : '' };
+
+        return inputs[assignmentId][studentId].input;
+    };
+
+    var getStudentActiveStatus = function (studentId) {
+        if (_.isUndefined(activeStatus.students[studentId])) {
+            var student = getUser(studentId);
+            activeStatus.students[studentId] = {
+                fromChat : [{name:student.name,msg:'Hello, Professor'}],
+                toChat : []
+            };
         }
+        return activeStatus.students[studentId];
+    };
     
     // TODO enforce uniqueness
     var nextId;
@@ -33,9 +64,12 @@ define([
         url: /^\/users\/students$/,
         type: 'GET',
         responseTime: 0,
-        responseText: users.students
+        responseText: JSON.stringify(_.filter(users, function (user) {
+            return user.type == 'STUDENT';
+        }))
     });
-	
+
+    // get all words for an assignment
 	$.mockjax({
         url: /^\/assignments\/([\d]+)\/words$/,
         urlParams: ['assignmentId'],
@@ -48,6 +82,7 @@ define([
         }
     });
 
+    // validate username-password combination
     $.mockjax({
         url: /^\/users\/validation\?username=([a-zA-Z0-9]+)&pass=([a-fA-F0-9]{40})$/,
         urlParams: ['username', 'passwordHash'],
@@ -66,7 +101,7 @@ define([
         }
     });
 
-
+    // create a user
     $.mockjax({
         url: /^\/users\/create$/,
         type: 'POST',
@@ -152,22 +187,128 @@ define([
                 this.status = 404; // tried to start a nonexistent assignment
             } else {
                 activeAssignment = $.extend(true, {}, assignment, {
-                    timeStarted: moment().format()
+                    started: moment().format()
                 });
                 this.responseText = JSON.stringify(activeAssignment);
             }
         }
     });
 
-
     // get the active assignment
     $.mockjax({
         url: /^\/assignments\/active$/,
         type: 'GET',
         responseTime: 0,
-        response: function () {
+        response: function (settings) {
             this.responseText = activeAssignment ?
                 JSON.stringify(activeAssignment) : '';
+        }
+    });
+
+    // get a student's status in the active assignment
+    $.mockjax({
+        url: /^\/users\/([\d]+)\/status$/,
+        urlParams: ['studentId'],
+        type: 'GET',
+        responseTime: 0,
+        response: function (settings) {
+            var studentId = settings.urlParams.studentId,
+                userStatus = activeStatus.students[studentId];
+            if (_.isUndefined(userStatus)) {
+                this.status = 404;
+                this.responseText = '';
+            } else {
+                this.responseText = JSON.stringify({
+                    monitored : studentId == activeStatus.monitoredStudent,
+                    helpRequested : _.contains(
+                        activeStatus.requestedHelp, studentId),
+                    newChatMessages : activeStatus.students[studentId].toChat
+                });
+                activeStatus.students[studentId].toChat = [];
+            }
+        }
+    });
+
+    // get an instructor-level status of the active assignment
+    $.mockjax({
+        url: /^\/instructors\/([\d]+)\/status$/,
+        urlParams: ['instructorId'],
+        type: 'GET',
+        responseTime: 0,
+        response: function (settings) {
+            var monitoredId = activeStatus.monitoredStudent;
+            this.responseText = JSON.stringify({
+                input : getStudentActiveInput(activeAssignment.id, monitoredId),
+                newChatMessages : getStudentActiveStatus(monitoredId).fromChat,
+                helpRequested : _.contains(
+                    activeStatus.requestedHelp, monitoredId)
+            });
+            activeStatus.students[monitoredId].fromChat = [];
+        }
+    });
+
+    // send new message to a student
+    $.mockjax({
+        url: /^\/users\/([\d]+)\/chat\/([\d]+)$/,
+        urlParams: ['studentId', 'instructorId'],
+        type: 'POST',
+        responseTime: 0,
+        response: function (settings) {
+            var studentId = settings.urlParams.studentId,
+                instructorId = settings.urlParams.instructorId,
+                instructor = getInstructor(instructorId);
+
+            if (_.isUndefined(instructor)) {
+                this.status = 404;
+            } else {
+                activeStatus.students[studentId].toChat.push({
+                    name : instructor.name,
+                    msg : settings.data.msg
+                });
+            }
+
+            this.responseText = '';
+        }
+    });
+
+    // send new message to instructor
+    $.mockjax({
+        url: /^\/instructors\/([\d]+)\/chat$/,
+        urlParams : ['instructorId'],
+        type: 'POST',
+        responseTime: 0,
+        response: function (settings) {
+            var instructorId = settings.urlParams.instructorId,
+                studentId = settings.data.senderId;
+            getStudentActiveStatus(studentId).fromChat.push(settings.data.msg);
+            this.responseText = '';
+        }
+    });
+
+    // say that a student is being monitored
+    $.mockjax({
+        url: /^\/users\/([\d]+)\/monitored$/,
+        urlParams: ['studentId'],
+        type: 'PUT',
+        responseTime: 0,
+        response: function (settings) {
+            activeStatus.monitoredStudent = settings.urlParams.studentId;
+        }
+    });
+
+    // request help from instructor
+    $.mockjax({
+        url: /^\/users\/([\d]+)\/requesthelp$/,
+        urlParams: ['studentId'],
+        type: 'PUT',
+        responseTime: 0,
+        response: function (settings) {
+            var studentId = settings.urlParams.studentId;
+            if (studentId != activeStatus.monitoredStudent &&
+                    !_.contains(activeStatus.requestedHelp, studentId)) {
+                activeStatus.requestedHelp.push(studentId);
+            }
+            this.responseText = '';
         }
     });
 
@@ -185,8 +326,9 @@ define([
                 this.status = 404;
                 this.responseText = '';
             } else {
-                this.responseText =
-                    JSON.stringify(inputs[assignment.id][student.id]);
+                var studentInput =
+                    getStudentActiveInput(assignment.id, student.id);
+                this.responseText = studentInput;
             }
         }
     });

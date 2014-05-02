@@ -22,6 +22,7 @@ require.config({
 		wordbank: 'widgets/word-bank/word-bank',
 		exercisecreate: 'widgets/exercise-create/exercise_create',
         timer: 'widgets/timer/timer',
+        chatbox: 'widgets/chatbox/chatbox',
 
         // utils
         stringutil: 'util/stringutil',

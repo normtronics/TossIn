@@ -1,13 +1,21 @@
 {
-    "0" : {
+    "1" : {
+        "1": {
+            "input": "Lorem ipsum dolor sit amet, consectetur adipisicing elit"
+        },
+        "3": {
+            "input": "sed do eiusmod tempor incididunt ut labore et dolore mag"
+        }
+    },
+    "2" : {
         "0": {
-            "input": "My name is Brad. This is my input for this assignment."
+            "input": "My name is Brad. This is my input for assignment 2."
         },
         "1": {
             "input": "My name is Stephen. This is my input for this assignment."
         },
         "2": {
-            "input": "I'm Matt and this is my input for this assignment."
+            "input": "I'm Matt and this is my input for assignment 2."
         },
         "3": {
             "input": "I am Chris and this is my input for this assignment."

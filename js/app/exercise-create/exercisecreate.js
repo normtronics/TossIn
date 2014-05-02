@@ -12,6 +12,8 @@ define([
 	var $exercise = $element.find('#exercise-create'),
         $savedlist = $element.find('#ex-saved-pane');
 		
+    var instructor;
+
 	$ex.find('.save-button').click(function () {
 		EXERCISE_CREATE.saveExercise();
 	});
@@ -22,9 +24,10 @@ define([
 	
 	var api = {
 		/** Shows the exercise create interface **/
-		show : function () {
+		show : function (someInstructor) {
 			var $content = $('#content-inner');
 			$content.empty().append($element);
+            instructor = someInstructor;
 			
 			$('#exercise-create').append($ex);
 			$('#ex-saved-pane').show();
@@ -98,8 +101,9 @@ define([
 			var $div = $(button).closest('div'),
                 exerciseId = $div.attr('data-id');
 		    
-            $.post('/assignments/' + exerciseId + '/start');
-			instructorView.show(exercise);
+            $.post('/assignments/' + exerciseId + '/start').done(function () {
+			    instructorView.show(instructor);
+            });
 		},
 		
 		/** Binds the functions for the save list buttons **/
@@ -131,10 +135,12 @@ define([
 		/** Saves current exercise **/
 		saveExercise : function () {
 			var data = {
-				name : $('#ex-name').val(),
+                instructorId : instructor.id,
+                name : $('#ex-name').val(),
 				description : $('#ex-description').val(),
-                // timeLimit : 
                 wordInterval : $('ex-interval').val()
+                // TODO timeLimit : 
+                // TODO random :
 			};
 			
 			var newExercise = (EXERCISE_CREATE.savedExercises[data.name] == undefined);
