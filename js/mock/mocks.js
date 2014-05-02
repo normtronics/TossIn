@@ -56,7 +56,7 @@ define([
     };
     
     // TODO enforce uniqueness
-    var nextId;
+    var nextId = 1000;
     var getNextId = function () { return nextId++; }
 
     // get all students
@@ -132,6 +132,7 @@ define([
                 id : getNextId()
             });
             assignments.push(newAssignment);
+            this.responseText = JSON.stringify(newAssignment);
         }
     });
 
