@@ -1,7 +1,34 @@
 {
+    "global_student" : "STUDENT",
+    "global_instructor" : "INSTRUCTOR",
+    "global_log_in" : "Log in",
+    "global_log_out" : "Log out",
+    "global_cancel" : "Cancel",
+    "global_clear" : "Clear",
+    "global_save" : "Save",
+
     "login_title" : "Toss In",
     "login_username" : "Username",
     "login_password" : "Password",
-    "login_log_in" : "Log in",
-    "login_register" : "Register"
+    "login_register" : "Register",
+
+    "register_title" : "Registration",
+    "register_first_name" : "First name",
+    "register_last_name" : "Last name",
+    "register_username" : "Username",
+    "register_email" : "Email",
+    "register_password" : "Password",
+    "register_password_again" : "Enter Password Again",
+
+    "create_title" : "Create and Edit Exercises",
+    "create_options" : "Options",
+    "create_name" : "Name",
+    "create_exercise_name" : "Exercise Name",
+    "create_description" : "Description",
+    "create_desc_of_exercise" : "Exercise Description",
+    "create_randomize_order" : "Randomize word order",
+    "create_interval" : "Interval",
+    "create_sec_between_words" : "Seconds between words",
+    "create_word_list" : "Word List",
+    "create_saved_exercises" : "Saved Exercised"
 }

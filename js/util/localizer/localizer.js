@@ -11,7 +11,7 @@ define([
 
     var api = {
         setLocale : function (locale) {
-            if (!_.contains(supportedLocales, locale)) {
+            if (supportedLocales.indexOf(locale) < 0) {
                 console.log('WARNING: Locale ' + locale + ' not supported. ' +
                             'Defaulting to locale: en-us');
                 locale = 'en-us';
@@ -20,6 +20,8 @@ define([
             api = $.extend(api, JSON.parse(localeMap[locale]));
         }
     };
+
+    api.setLocale('en-us');
 
     return api;
 });

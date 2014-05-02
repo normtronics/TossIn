@@ -1,13 +1,14 @@
 define([
 	'jquery',
+    'localizer',
 	'text!app/instructor/instructor.htm',
 	'text!app/exercise-create/exercise_create.htm',
 	'stringutil',
 	'app/instructor/instructor',
 	'mocks',
-], function ($, markup, ex_markup, stringutil, instructorView) {
+], function ($, localizer,markup, ex_markup, stringutil, instructorView) {
 	var $element = $(markup),
-		$ex      = $(ex_markup);
+		$ex      = $(_.template(ex_markup)(localizer));
 		
 	var $exercise = $element.find('#exercise-create'),
         $savedlist = $element.find('#ex-saved-pane');

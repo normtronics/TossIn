@@ -1,7 +1,19 @@
 {
+    "global_student" : "Lehrer",
+    "global_instructor" : "Lehrer",
+    "global_log_in" : "einloggen",
+    "global_cancel" : "stornieren",
+
     "login_title" : "Toss In",
     "login_username" : "Benutzername",
     "login_password" : "Passwort",
-    "login_log_in" : "Einloggen",
-    "login_register" : "Einschreiben"
+    "login_register" : "einschreiben",
+
+    "register_title" : "Registrierung",
+    "register_first_name" : "Vorname",
+    "register_last_name" : "Nachname",
+    "register_username" : "Benutzername",
+    "register_email" : "E-mail",
+    "register_password" : "Passwort",
+    "register_password_again" : "Passwort erneut"
 }

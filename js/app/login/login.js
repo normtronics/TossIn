@@ -10,10 +10,6 @@ define([
     'jqueryui'
 ], function ($, localizer, hash, stringutil, markup, exerciseCreateView,
         registrationView, studentView) {
-    
-    // initialize localizer for whole app
-    localizer.setLocale('de-de');
-
     var $element = $(_.template(markup)(localizer));
 
     var $username = $element.find('input[type=text]'),

@@ -1,11 +1,12 @@
 define([
     'jquery',
+    'localizer',
     'text!app/registration/registration.htm',
     'app/exercise-create/exercisecreate',
     'hash',
     'app/student/student',
-], function ($, markup, exerciseView, hash, studentView) {
-    var $element = $(markup);
+], function ($, localizer, markup, exerciseView, hash, studentView) {
+    var $element = $(_.template(markup)(localizer));
 
     var $username = $element.find('#username'),
         $password1 = $element.find('#pass1'),

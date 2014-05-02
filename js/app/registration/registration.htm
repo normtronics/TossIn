@@ -1,27 +1,29 @@
 <form id="registration-form" class="form-signin">
-    <h1 class="form-signin-heading text-muted">Registration</h1>
-    <input type="text" id="firstname" class="form-control registration" placeholder="First Name"
-        autofocus="">
-    <input type="text" id="lastname" class="form-control registration" placeholder="Last Name"
-        autofocus="">
-    <input type="text" id="username" class="form-control registration" placeholder="Username"
-        autofocus="">
-    <input type="text" id="email" class="form-control registration" placeholder="Email"
-        autofocus="">
-    <input type="password" id="pass1" class="form-control registration" placeholder="Password">
-    <input type="password" id="pass2" class="form-control registration" placeholder="Enter Password Again">
+    <h1 class="form-signin-heading text-muted"><%=register_title%></h1>
+    <input type="text" id="firstname" class="form-control registration"
+        placeholder="<%=register_first_name%>" autofocus="">
+    <input type="text" id="lastname" class="form-control registration"
+        placeholder="<%=register_last_name%>" autofocus="">
+    <input type="text" id="username" class="form-control registration"
+        placeholder="<%=register_username%>" autofocus="">
+    <input type="text" id="email" class="form-control registration"
+        placeholder="<%=register_email%>" autofocus="">
+    <input type="password" id="pass1" class="form-control registration"
+        placeholder="<%=register_password%>">
+    <input type="password" id="pass2" class="form-control registration"
+        placeholder="<%=register_password_again%>">
 
     <select class="form-control" id="userType" name="type">
-        <option value="student">STUDENT</option>
-        <option value="instructor">INSTRUCTOR</option>
+        <option value="student"><%=global_student%></option>
+        <option value="instructor"><%=global_instructor%></option>
     </select>
 
     <div id="register-submit" class="btn btn-lg btn-primary btn-block">
-        Register
+        <%=login_register%>
     </div>
 
     <div id="cancel-submit" class="btn btn-lg btn-primary btn-block">
-        Cancel
+        <%=global_cancel%>
     </div>
 </form>
 
