@@ -8,5 +8,21 @@
         <%=global_log_in%>
     </div>
     <a href="javascript:void(0)" id="reg"><%=login_register%></a>
+    <div id="tossin-settings-dialog">
+        <div class="tossin-settings-label"><%=settings_language%></div>
+        <select class="form-control" id="tossin-settings-language" name="lang">
+            <option value="en-us"><%=settings_english%></option>
+            <option value="de-de"><%=settings_german%></option>
+        </select>
+        <div id="tossin-settings-save-btn" class="btn btn-primary">
+            <%=global_save%>
+        </div>
+        <div id="tossin-settings-cancel-btn" class="btn btn-primary">
+            <%=global_cancel%>
+        </div>
+    </div>
+    <div id="tossin-settings-btn" class="btn btn-primary">
+        <%=global_settings%>
+    </div>
 </form>
 

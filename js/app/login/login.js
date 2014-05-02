@@ -15,7 +15,13 @@ define([
     var $username = $element.find('input[type=text]'),
         $password = $element.find('input[type=password]'),
         $loginBtn = $element.find('#login-submit'),
-        $regBtn = $element.find('#reg');
+        $regBtn = $element.find('#reg'),
+
+        $settingsBtn = $element.find('#tossin-settings-btn'),
+        $settingsDialog = $element.find('#tossin-settings-dialog'),
+        $settingsLanguageSelect = $element.find('#tossin-settings-language'),
+        $settingsSaveBtn = $element.find('#tossin-settings-save-btn'),
+        $settingsCancelBtn = $element.find('#tossin-settings-cancel-btn');
 
     var validationUrlTemplate = '/users/validation?username={0}&pass={1}';
 
@@ -49,6 +55,23 @@ define([
 
             $regBtn.on('click', function (event) {
                 registrationView.show(api);
+            });
+
+            $settingsBtn.on('click', function () {
+                $settingsDialog.removeClass('hide');
+                $settingsDialog.slideToggle('fast');
+            });
+
+            $settingsLanguageSelect.val(localStorage.tossinLocale || 'en-us');
+
+            $settingsSaveBtn.on('click', function () {
+                localStorage.tossinLocale =
+                    $settingsDialog.find('#tossin-settings-language').val();
+                window.location = window.location;
+            });
+
+            $settingsCancelBtn.on('click', function () {
+                $settingsDialog.slideToggle('fast');
             });
 
             var $content = $('#content-inner');

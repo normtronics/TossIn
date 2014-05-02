@@ -160,6 +160,40 @@ body {
     margin-bottom: 10px;
 }
 
+#tossin-settings-btn {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+#tossin-settings-dialog {
+    padding: 10px;
+    position: absolute;
+    height: 250px;
+    width: 200px;
+    right: 150px;
+    top: 10px;
+    display: none;
+    background-color: rgba(0, 170, 225, 0.65);
+    box-shadow: 5px 5px 5px #555555;
+}
+
+#tossin-settings-dialog > .tossin-settings-label {
+    float: left;
+}
+
+#tossin-settings-save-btn {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+}
+
+#tossin-settings-cancel-btn {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+
 /* Instructor and Student views */
 /* markup defined in app/instructor/instructor.htm */
 
@@ -307,7 +341,7 @@ body {
     bottom: 4px;
     height: 30px;
     float: left;
-    width: 70%;
+    width: 64%;
 }
 
 #tossin-chatbox > #tossin-chat-submit {
@@ -315,7 +349,7 @@ body {
     bottom: 2px;
     right: 2px;
     height: 33px;
-    width: 26%;
+    width: 32%;
 }
 
 /* Student list widget */

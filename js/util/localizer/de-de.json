@@ -9,6 +9,7 @@
     "global_time_remaining" : "Restzeit",
     "global_send" : "Senden",
     "global_word_bank" : "Wort Bank",
+    "global_settings" : "Einstellungen",
 
     "login_title" : "Toss In",
     "login_username" : "Benutzername",
@@ -36,5 +37,9 @@
     "create_saved_exercises" : "Übungen gespeichert",
 
     "student_assignment" : "Aufgabe",
-    "student_waiting" : "Warten auf Aufgabe..."
+    "student_waiting" : "Warten auf Aufgabe...",
+
+    "settings_language" : "Sprache",
+    "settings_english" : "Englisch",
+    "settings_german" : "Deutsch"
 }

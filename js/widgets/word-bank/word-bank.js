@@ -1,11 +1,12 @@
 define([
     'jquery',
     'underscore',
+    'localizer',
     'text!widgets/word-bank/word-bank.htm',
     'stringutil',
     'jqueryui',
     'mocks'
-], function ($, _, markup, stringutil) {
+], function ($, _, localizer, markup, stringutil) {
 	var wordMarkup =
         '<div class="word-bank-item">{0}</div>';
 
@@ -62,7 +63,8 @@ define([
 		},
         _create : function () {
 			var that = this;
-            this.element.append($(markup)).addClass('wordbank'); 
+            this.element.append($(_.template(markup)(localizer)))
+                .addClass('wordbank'); 
         },
         _destroy : function () {
             this.element.removeClass('wordbank');

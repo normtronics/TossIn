@@ -21,7 +21,7 @@ define([
         }
     };
 
-    api.setLocale('de-de');
+    api.setLocale(localStorage.tossinLocale || 'en-us');
 
     return api;
 });
