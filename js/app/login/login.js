@@ -1,5 +1,6 @@
 define([
     'jquery',
+    'localizer',
     'hash',
     'stringutil',
     'text!app/login/login.htm',
@@ -7,9 +8,13 @@ define([
     'app/registration/registration',
     'app/student/student',
     'jqueryui'
-], function ($, hash, stringutil, markup, exerciseCreateView,
+], function ($, localizer, hash, stringutil, markup, exerciseCreateView,
         registrationView, studentView) {
-    var $element = $(markup);
+    
+    // initialize localizer for whole app
+    localizer.setLocale('de-de');
+
+    var $element = $(_.template(markup)(localizer));
 
     var $username = $element.find('input[type=text]'),
         $password = $element.find('input[type=password]'),

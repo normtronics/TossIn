@@ -59,7 +59,7 @@ define([
                     started : moment(response.started),
                     totalSec : response.timeLimit
                 }).timer('start');
-                $textArea.texteditor();
+                $textArea.texteditor().texteditor('toggle', false);
                 assignment = _.isString(response) ?
                     JSON.parse(response) : response;
                 

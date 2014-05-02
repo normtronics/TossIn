@@ -26,6 +26,7 @@ require.config({
 
         // utils
         stringutil: 'util/stringutil',
+        localizer: 'util/localizer/localizer',
         hash: 'util/hash',
         mocks: 'mock/mocks'
     }
