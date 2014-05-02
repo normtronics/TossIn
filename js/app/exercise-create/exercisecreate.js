@@ -84,6 +84,7 @@ define([
                 response = _.isString(response) ?
                         JSON.parse(response) : response;
                 _.each(response, function (exercise) {
+					that.savedExercises[exercise.name] = exercise;
                     var div = savedExerciseMarkup;
                     var formatted = stringutil.format(div,
                         exercise.name, exercise.id);
@@ -96,9 +97,11 @@ define([
 		/** Launches an exercise **/
 		launchExercise : function (button) {
 			var $div = $(button).closest('div'),
-                exerciseId = $div.attr('data-id');
-		    
-            $.post('/assignments/' + exerciseId + '/start');
+                exerciseId = $div.attr('data-id'),
+				exerciseName = $div.find('.saved-exercise-name'),
+				exercise = this.savedExercises[exerciseName];
+            //$.post('/assignments/' + exerciseId + '/start');
+			
 			instructorView.show(exercise);
 		},
 		
@@ -124,7 +127,7 @@ define([
 			var $div = $(button).closest('div'),
                 exerciseId = $div.attr('data-id');
 
-            $.delete('/assignments/' + exerciseId);
+            //$.delete('/assignments/' + exerciseId);
 			$div.detach();
 		},
 			
@@ -146,7 +149,8 @@ define([
 			
 			data.words = words;
 
-            $.post('/assignments', data);
+            //$.post('/assignments', data);
+			this.savedExercises[data.name] = data;
 	
             //Don't append a new listing if the exercise already exists
 			if(newExercise) {
@@ -160,10 +164,12 @@ define([
 		loadExercise : function (button) {
 			//Pull key out of div to locate data
 			var exerciseId = $(button).closest('div').attr('data-id');
-		
-            $.get('/assignments/' + exerciseId).done(function (response) {
-                response = _.isString(response) ?
-                        JSON.parse(response) : response;
+			var exerciseName = $(button).closest('div').find('.saved-exercise-name').html();
+			var response = this.savedExercises[exerciseName];
+			
+//            $.get('/assignments/' + exerciseId).done(function (response) {
+//                response = _.isString(response) ?
+//                        JSON.parse(response) : response;
                 /** Populate editable fields with loaded exercise data **/
                 $('#ex-name').val(response.name);
                 $('#ex-description').val(response.description);
@@ -179,7 +185,7 @@ define([
                     EXERCISE_CREATE.addWord();
                     $('.word-list input:last').val(response.words[x]);
                 }
-            });
+//            });
 		},
 		
 		/** Clears the edit pane to make way for new variables **/
