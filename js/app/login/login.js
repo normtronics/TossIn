@@ -48,7 +48,7 @@ define([
             });
 
             $regBtn.on('click', function (event) {
-                registrationView.show();
+                registrationView.show(api);
             });
 
             var $content = $('#content-inner');
