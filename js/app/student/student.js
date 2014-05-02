@@ -3,12 +3,13 @@ define([
     'text!app/instructor/instructor.htm',
     'text!app/student/right-pane-prompt.htm',
     'stringutil',
+    'moment',
     'texteditor',
 	'wordbank',
     'timer',
     'chatbox',
     'mocks'
-], function ($, markup, rightPaneMarkup, stringutil) {
+], function ($, markup, rightPaneMarkup, stringutil, moment) {
     var PING_INTERVAL = 2000;
 
     var $element = $(markup),
@@ -18,7 +19,9 @@ define([
         $topMiddle = $element.find('#top-middle-pane'),
         $textArea = $element.find('#text-area'),
         $wordBank = $element.find('#word-bank'),
-        $statusLights = $element.find('#status-lights'),
+        $statusLightsAndLogout = $element.find('#status-lights-and-logout'),
+        $statusLights = $statusLightsAndLogout.find('#status-lights'),
+        $logoutBtn = $statusLightsAndLogout.find('#tossin-logout'),
         $chatBox = $element.find('#chat-box'),
         $assignmentBody = $rightPane.find('#assignment-body');
 
@@ -78,6 +81,10 @@ define([
             $topMiddle.append(
                     '<div class="label">Waiting for assignment...</div>');
             $chatBox.chatbox();
+
+            $logoutBtn.on('click', function () {
+                window.location = window.location;
+            });
 
             var $content = $('#content-inner');
             $content.empty().append($element);

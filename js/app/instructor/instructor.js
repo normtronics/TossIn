@@ -2,12 +2,13 @@ define([
     'jquery',
     'text!app/instructor/instructor.htm',
     'stringutil',
+    'moment',
 	'wordbank',
 	'studentlist',
     'texteditor',
     'timer',
 	'mocks'
-], function ($, markup, stringutil) {
+], function ($, markup, stringutil, moment) {
     var PING_INTERVAL = 2000;
 
     var $element = $(markup);
@@ -16,7 +17,9 @@ define([
         $topMiddlePane = $element.find('#top-middle-pane'),
         $textArea = $element.find('#text-area'),
         $wordBank = $element.find('#word-bank'),
-        $statusLights = $element.find('#status-lights'),
+        $statusLightsAndLogout = $element.find('#status-lights-and-logout'),
+        $statusLights = $statusLightsAndLogout.find('#status-lights'),
+        $logoutBtn = $statusLightsAndLogout.find('#tossin-logout'),
         $chatBox = $element.find('#chat-box');
 
     var instructor, assignment;
@@ -52,7 +55,6 @@ define([
                 }).wordbank('addWords', response.words);
                 $chatBox.chatbox({user : instructor});
 
-                // TODO get elapsed time from moment() and response.started
                 $topMiddlePane.timer({
                     started : moment(response.started),
                     totalSec : response.timeLimit
@@ -60,6 +62,10 @@ define([
                 $textArea.texteditor();
                 assignment = _.isString(response) ?
                     JSON.parse(response) : response;
+                
+                $logoutBtn.on('click', function () {
+                    window.location = window.location;
+                });
 
                 $studentList.studentlist('loaded').done(function () {
                     $.ajax({

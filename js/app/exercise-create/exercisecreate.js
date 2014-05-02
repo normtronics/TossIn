@@ -31,7 +31,8 @@ define([
 			
 			$('#exercise-create').append($ex);
 			$('#ex-saved-pane').show();
-			$('#word-bank,#status-lights,#chat-box').hide();
+			$('#word-bank,#chat-box').hide();
+            $('#status-lights').empty();
 			$('#student-list').css('visibility','hidden');
             $('#middle-pane').remove();
 			//Populate saved exercises list
@@ -129,7 +130,10 @@ define([
 			var $div = $(button).closest('div'),
                 exerciseId = $div.attr('data-id');
 
-            $.delete('/assignments/' + exerciseId);
+            $.ajax({
+                url: '/assignments/' + exerciseId,
+                type: 'DELETE'
+            });
 			$div.detach();
 		},
 			

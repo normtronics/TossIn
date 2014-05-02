@@ -208,7 +208,7 @@ body {
     margin: 45px;
 }
 
-#word-bank, #status-lights, #chat-box {
+#word-bank, #status-lights-and-logout, #chat-box {
     box-shadow: 5px 5px 5px #555555;
     background-color: rgba(0, 170, 225, 0.65);
 }
@@ -217,9 +217,27 @@ body {
     height: 35%;
 }
 
-#status-lights {
+#status-lights-and-logout {
     margin-top: 5%;
     height: 11%;
+}
+
+#status-lights, #logout-container {
+    position: relative;
+    float: left;
+    height: 100%;
+    width: 50%;
+    text-align: center;
+}
+
+#tossin-logout {
+    float: none;
+    position: absolute;
+    right: 10px;
+    bottom: -moz-calc(50% - 17px);
+    bottom: -webkit-calc(50% - 17px);
+    bottom: -o-calc(50% - 17px);
+    bottom: calc(50% - 17px);
 }
 
 #chat-box {
