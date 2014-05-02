@@ -19,7 +19,7 @@ define([
     $.widget('tossin.timer', {
         options: {
             totalSec : 300,
-            elapsedSec : 0
+            started : null
         },
         _create : function () {
             var that = this;
@@ -28,9 +28,10 @@ define([
             this.displayDiv = this.element.find('#tossin-timer-countdown');
         },
         _tick : function () {
-            if (this.options.elapsedSec <= this.options.totalSec) {
+            var elapsed = moment().diff(this.options.started, 'seconds');
+            if (elapsed <= this.options.totalSec) {
                 this.displayDiv.text(getTimeString(
-                    this.options.totalSec - this.options.elapsedSec++));
+                    this.options.totalSec - elapsed));
             } else clearTimeout(tickInterval);
         },
         start : function (totalSeconds) {

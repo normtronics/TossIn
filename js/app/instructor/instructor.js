@@ -54,7 +54,7 @@ define([
 
                 // TODO get elapsed time from moment() and response.started
                 $topMiddlePane.timer({
-                    // elapsedSec : ...,
+                    started : moment(response.started),
                     totalSec : response.timeLimit
                 }).timer('start');
                 $textArea.texteditor();
