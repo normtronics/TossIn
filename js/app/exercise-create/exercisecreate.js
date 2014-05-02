@@ -7,7 +7,7 @@ define([
 	'app/instructor/instructor',
 	'mocks',
 ], function ($, localizer,markup, ex_markup, stringutil, instructorView) {
-	var $element = $(markup),
+	var $element = $(_.template(markup)(localizer)),
 		$ex      = $(_.template(ex_markup)(localizer));
 		
 	var $exercise = $element.find('#exercise-create'),
@@ -36,6 +36,10 @@ define([
             $('#status-lights').empty();
 			$('#student-list').css('visibility','hidden');
             $('#middle-pane').remove();
+
+            $('#tossin-logout').on('click', function () {
+                window.location = window.location;
+            });
 			//Populate saved exercises list
 			EXERCISE_CREATE.loadSavedExercises();
 		},

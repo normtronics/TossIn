@@ -6,6 +6,9 @@
     "global_cancel" : "Cancel",
     "global_clear" : "Clear",
     "global_save" : "Save",
+    "global_time_remaining" : "Time remaining",
+    "global_send" : "Send",
+    "global_word_bank" : "Word Bank",
 
     "login_title" : "Toss In",
     "login_username" : "Username",
@@ -30,5 +33,8 @@
     "create_interval" : "Interval",
     "create_sec_between_words" : "Seconds between words",
     "create_word_list" : "Word List",
-    "create_saved_exercises" : "Saved Exercised"
+    "create_saved_exercises" : "Saved Exercises",
+
+    "student_assignment" : "Assignment",
+    "student_waiting" : "Waiting for assignment..."
 }

@@ -1,8 +1,14 @@
 {
-    "global_student" : "Lehrer",
-    "global_instructor" : "Lehrer",
+    "global_student" : "STUDENT",
+    "global_instructor" : "LEHRER",
     "global_log_in" : "einloggen",
+    "global_log_out" : "ausloggen",
     "global_cancel" : "stornieren",
+    "global_clear" : "löschen",
+    "global_save" : "speichern",
+    "global_time_remaining" : "Restzeit",
+    "global_send" : "Senden",
+    "global_word_bank" : "Wort Bank",
 
     "login_title" : "Toss In",
     "login_username" : "Benutzername",
@@ -10,10 +16,25 @@
     "login_register" : "einschreiben",
 
     "register_title" : "Registrierung",
-    "register_first_name" : "Vorname",
+    "register_first_name" : "Virname",
     "register_last_name" : "Nachname",
     "register_username" : "Benutzername",
     "register_email" : "E-mail",
     "register_password" : "Passwort",
-    "register_password_again" : "Passwort erneut"
+    "register_password_again" : "Passwort erneut",
+
+    "create_title" : "Shaffen und bearbeiten Übungen",
+    "create_options" : "Optionen",
+    "create_name" : "Name",
+    "create_exercise_name" : "Übung Name",
+    "create_description" : "Beschreibung",
+    "create_desc_of_exercise" : "Übung Beschreibung",
+    "create_randomize_order" : "Machen Worten zufällig Auftrag",
+    "create_interval" : "Zeitintervall",
+    "create_sec_between_words" : "zwischen den Worten",
+    "create_word_list" : "Wortliste",
+    "create_saved_exercises" : "Übungen gespeichert",
+
+    "student_assignment" : "Aufgabe",
+    "student_waiting" : "Warten auf Aufgabe..."
 }

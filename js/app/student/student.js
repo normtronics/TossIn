@@ -1,5 +1,6 @@
 define([
     'jquery',
+    'localizer',
     'text!app/instructor/instructor.htm',
     'text!app/student/right-pane-prompt.htm',
     'stringutil',
@@ -9,11 +10,11 @@ define([
     'timer',
     'chatbox',
     'mocks'
-], function ($, markup, rightPaneMarkup, stringutil, moment) {
+], function ($, localizer, markup, rightPaneMarkup, stringutil, moment) {
     var PING_INTERVAL = 2000;
 
-    var $element = $(markup),
-        $rightPane = $(rightPaneMarkup);
+    var $element = $(_.template(markup)(localizer)),
+        $rightPane = $(_.template(rightPaneMarkup)(localizer));
 
     var $studentList = $element.find('#student-list'),
         $topMiddle = $element.find('#top-middle-pane'),
@@ -78,8 +79,9 @@ define([
             $textArea.texteditor().texteditor('toggle', false);
 			$wordBank.wordbank({ controller : api });
             $topMiddle.addClass('waiting');
-            $topMiddle.append(
-                    '<div class="label">Waiting for assignment...</div>');
+            $topMiddle.append(_.template(
+                '<div class="label"><%=student_waiting%></div>'
+            )(localizer));
             $chatBox.chatbox();
 
             $logoutBtn.on('click', function () {

@@ -1,9 +1,10 @@
 define([
     'jquery',
+    'localizer',
     'underscore',
     'text!widgets/chatbox/chatbox.htm',
     'moment'
-], function ($, _, markup, moment) {
+], function ($, localizer, _, markup, moment) {
     var msgTemplate = _.template(
         '<div class="message">' +
             '<div class="tossin-name-label"><b><%=name%></b></div>' +
@@ -39,7 +40,7 @@ define([
         },
         _create : function () {
             var that = this;
-            this.element.append($(markup));
+            this.element.append($(_.template(markup)(localizer)));
 
             // TODO disable when loaded, enable when active assignment
 

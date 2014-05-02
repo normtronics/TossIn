@@ -1,6 +1,7 @@
 define([
     'jquery',
     'text!app/instructor/instructor.htm',
+    'localizer',
     'stringutil',
     'moment',
 	'wordbank',
@@ -8,10 +9,10 @@ define([
     'texteditor',
     'timer',
 	'mocks'
-], function ($, markup, stringutil, moment) {
+], function ($, markup, localizer, stringutil, moment) {
     var PING_INTERVAL = 2000;
 
-    var $element = $(markup);
+    var $element = $(_.template(markup)(localizer));
 
     var $studentList = $element.find('#student-list'),
         $topMiddlePane = $element.find('#top-middle-pane'),
@@ -32,7 +33,6 @@ define([
                
                 $textArea.texteditor('updateText', response.input);
                 
-                // TODO cache message log, probably in chatbox widget
                 _.each(response.newChatMessages, function (details) {
                     $chatBox.chatbox('addMessage', details.name, details.msg);
                 });
