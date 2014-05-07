@@ -43,7 +43,7 @@ define([
                         if(user.type === 'INSTRUCTOR') {
                             exerciseCreateView.show(user);		
                         } else if (user.type === 'STUDENT') {
-                            studentView.show(api, user);
+                            studentView.show(user);
                         }	
                     } else {
                         console.log('Invalid credentials');

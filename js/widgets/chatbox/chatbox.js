@@ -16,7 +16,7 @@ define([
     var messageCache = {};
 
     var $chatWindow, $submitBtn, $chatInput,
-        lastSpeaker, recipientId;
+        lastSpeaker, recipientId, assignmentId;
 
     var addMessage = function (name, content, sent, cached) {
         var $el = $(msgTemplate({ name : name, content : content }));
@@ -56,14 +56,28 @@ define([
         addMessage : function (name, content) {
             addMessage(name, content, false);
         },
-        setRecipientId : function (id) {
-            recipientId = id;
-            if (_.isUndefined(messageCache[recipientId]))
-                messageCache[recipientId] = [];
+        refreshWindow : function () { 
             $chatWindow.empty();
             _.each(messageCache[recipientId], function (details) {
                 addMessage(details.name, details.content, details.sent, true);
             });
+        },
+        setRecipientId : function (id) {
+            recipientId = id;
+            if (_.isUndefined(messageCache[recipientId]))
+                messageCache[recipientId] = [];
+            this.refreshWindow();
+        },
+        setAssignmentId : function (id) {
+            assignmentId = id;
+            if (!_.isUndefined(localStorage.tossin)) {
+                var local = JSON.parse(localStorage.tossin),
+                    messages = local.chatLogs;
+                if (!_.isUndefined(messages)) {
+                    messageCache = messages[assignmentId] || {};
+                    this.refreshWindow();
+                }
+            }
         },
         _submit : function () {
             if ($chatInput.val() != '' && recipientId) {
@@ -85,4 +99,16 @@ define([
         }
     });
 
+    $(window).on('unload', function () {
+        if (_.isUndefined(assignmentId)) return;
+
+        var dataExists = !_.isUndefined(localStorage.tossin),
+            local = dataExists ? JSON.parse(localStorage.tossin) : {};
+
+        var chatLogs = {};
+        chatLogs[assignmentId] = messageCache;
+        localStorage.tossin = JSON.stringify($.extend(true, local, {
+            chatLogs : chatLogs
+        }));
+    });
 });

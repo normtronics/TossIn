@@ -6,17 +6,23 @@ define([
     'text!mock/assignments.json',
     'mockjax'
 ], function (moment, _, usersJSON, inputsJSON, assignmentsJSON) {
-    
-    var users = JSON.parse(usersJSON),
-        inputs = JSON.parse(inputsJSON),
-        assignments = JSON.parse(assignmentsJSON),
-        activeStatus = {
-            monitoredStudent : "-1",
-            requestedHelp : [],
-            students : {}
-        };
+    var dataExists = !_.isUndefined(localStorage.tossin),
+        local = dataExists ? JSON.parse(localStorage.tossin) : undefined;
 
-    var activeAssignment;
+    var users =
+            dataExists ? local.users : JSON.parse(usersJSON),
+        inputs =
+            dataExists ? local.inputs : JSON.parse(inputsJSON),
+        assignments =
+            dataExists ? local.assignments : JSON.parse(assignmentsJSON),
+        activeStatus =
+            dataExists ? local.activeStatus : {
+                monitoredStudent : "-1",
+                requestedHelp : [],
+                students : {}
+            },
+        activeAssignment =
+            dataExists ? local.activeAssignment : null;
 
     var findById = function (collection, id) {
             return _.find(collection, function (item) {
@@ -332,5 +338,15 @@ define([
                 this.responseText = studentInput;
             }
         }
+    });
+
+    $(window).on('unload', function () {
+        localStorage.tossin = JSON.stringify($.extend(localStorage.tossin, {
+            users : users,
+            inputs : inputs,
+            assignments : assignments,
+            activeStatus : activeStatus,
+            activeAssignment : activeAssignment
+        }));
     });
 });

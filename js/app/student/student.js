@@ -63,6 +63,7 @@ define([
         $wordBank.wordbank('addWords', assignment.words);
         $textArea.texteditor('toggle', true);
         $chatBox.chatbox('setRecipientId', assignment.instructorId);
+        $chatBox.chatbox('setAssignmentId', assignment.id);
         $assignmentBody.text(assignment.description);
         $topMiddle.timer({
             totalSec : assignment.timeLimit,
@@ -82,7 +83,7 @@ define([
             $topMiddle.append(_.template(
                 '<div class="label"><%=student_waiting%></div>'
             )(localizer));
-            $chatBox.chatbox();
+            $chatBox.chatbox({ user: someUser });
 
             $logoutBtn.on('click', function () {
                 window.location = window.location;

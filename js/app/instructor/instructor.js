@@ -54,6 +54,7 @@ define([
                     allAtOnce : true
                 }).wordbank('addWords', response.words);
                 $chatBox.chatbox({user : instructor});
+                $chatBox.chatbox('setAssignmentId', response.id);
 
                 $topMiddlePane.timer({
                     started : moment(response.started),
