@@ -4,7 +4,8 @@ define([
     'text!mock/users.json',
     'text!mock/inputs.json',
     'text!mock/assignments.json',
-    'mockjax'
+    'mockjax',
+    'hotkeys'
 ], function (moment, _, usersJSON, inputsJSON, assignmentsJSON) {
     var dataExists = !_.isUndefined(localStorage.tossin),
         local = dataExists ? JSON.parse(localStorage.tossin) : undefined;
@@ -53,10 +54,7 @@ define([
     var getStudentActiveStatus = function (studentId) {
         if (_.isUndefined(activeStatus.students[studentId])) {
             var student = getUser(studentId);
-            activeStatus.students[studentId] = {
-                fromChat : [{name:student.name,msg:'Hello, Professor'}],
-                toChat : []
-            };
+            activeStatus.students[studentId] = { fromChat : [], toChat : [] };
         }
         return activeStatus.students[studentId];
     };
@@ -340,7 +338,13 @@ define([
         }
     });
 
+    var persistData = true;
+
     $(window).on('unload', function () {
+        if (!persistData) {
+            delete localStorage.tossin;
+            return;
+        };
         localStorage.tossin = JSON.stringify($.extend(localStorage.tossin, {
             users : users,
             inputs : inputs,
@@ -348,5 +352,12 @@ define([
             activeStatus : activeStatus,
             activeAssignment : activeAssignment
         }));
+    });
+
+    $(document).bind('keydown', 'ctrl+shift+x', function () {
+        persistData = !persistData;
+        window.console.log(persistData ?
+            "Persisting local data." :
+            "Not persisting local data.");
     });
 });
