@@ -261,11 +261,11 @@ body {
     height: 11%;
 }
 
-#status-lights, #logout-container {
+#logout-container {
     position: relative;
     float: left;
     height: 100%;
-    width: 50%;
+    width: 100%;
     text-align: center;
 }
 
@@ -273,6 +273,16 @@ body {
     float: none;
     position: absolute;
     right: 10px;
+    bottom: -moz-calc(50% - 17px);
+    bottom: -webkit-calc(50% - 17px);
+    bottom: -o-calc(50% - 17px);
+    bottom: calc(50% - 17px);
+}
+
+#tossin-active-assignment {
+    float: none;
+    position: absolute;
+    left: 10px;
     bottom: -moz-calc(50% - 17px);
     bottom: -webkit-calc(50% - 17px);
     bottom: -o-calc(50% - 17px);

@@ -40,6 +40,11 @@ define([
             $('#tossin-logout').on('click', function () {
                 window.location = window.location;
             });
+
+            $('#tossin-active-assignment').on('click', function () {
+                instructorView.show(instructor);
+            });
+
 			//Populate saved exercises list
 			EXERCISE_CREATE.loadSavedExercises();
 		},
@@ -100,6 +105,12 @@ define([
                     $('.saved-list').append(formatted);
                 });
 			    that.bindSavedListFunctions( $('.saved-list') );
+            });
+
+            $.get('/assignments/active').done(function (response) {
+                if (response !== '') {
+                    $('#tossin-active-assignment').removeClass('hide');
+                }
             });
 		},
 		

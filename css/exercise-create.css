@@ -44,10 +44,14 @@
 }
 
 
-.save-button,.clear-button {
+.save-button, .clear-button {
 	float : right;
-	margin-top : 25px;
+    margin-top: 10px;
 	margin-left : 5px;
+}
+
+.save-button {
+    margin-bottom: 10px;
 }
 
 .saved-list div {
